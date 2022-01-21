@@ -1,40 +1,35 @@
-import styles from './app.module.scss';
-
-import { Route, Link } from 'react-router-dom';
+import { Paper } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Route } from 'react-router-dom';
+import InspectTopics from './features/inspect-topics/inspect-topics';
+import { RootState } from './_store/store';
+import classes from './app.module.scss';
 
 export function App() {
+    const selectKafkaLogDirs = useSelector(
+        (state: RootState) => {
+            return state.updateKafkaLogDirsReducer ?? null;
+        },
+        (a, b) => a === b
+    );
+
     return (
         <>
-            <div role="navigation">
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/page-2">Page 2</Link>
-                    </li>
-                </ul>
-            </div>
+            <header className={classes['header']}>
+                <Paper variant="outlined" square>
+                    Topic Inspector
+                </Paper>
+            </header>
             <Route
                 path="/"
                 exact
                 render={() => (
                     <div>
-                        This is the generated root route.{' '}
-                        <Link to="/page-2">Click here for page 2.</Link>
+                        <InspectTopics></InspectTopics>
+                        {JSON.stringify(selectKafkaLogDirs, null, 2)}
                     </div>
                 )}
             />
-            <Route
-                path="/page-2"
-                exact
-                render={() => (
-                    <div>
-                        <Link to="/">Click here to go back to root page.</Link>
-                    </div>
-                )}
-            />
-            {/* END: routes */}
         </>
     );
 }
