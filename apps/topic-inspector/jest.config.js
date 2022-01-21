@@ -1,15 +1,13 @@
 module.exports = {
-  displayName: 'topic-inspector',
-  preset: '../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
+    displayName: 'topic-inspector',
+    preset: '../../jest.preset.js',
+    transform: {
+        '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+        '^.+\\.[tj]sx?$': [
+            '@swc/jest',
+            { jsc: { transform: { react: { runtime: 'automatic' } } } }
+        ]
     },
-  },
-  transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
-    '^.+\\.[tj]sx?$': 'ts-jest',
-  },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/apps/topic-inspector',
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+    coverageDirectory: '../../coverage/apps/topic-inspector'
 };
