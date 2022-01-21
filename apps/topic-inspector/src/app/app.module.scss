@@ -1,6 +1,37 @@
-/* Your styles goes here. */
-
 .header {
-    width: 100vw;
-    height: 4rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin: 3rem 0;
+
+    & h2 {
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    & .button-row {
+        display: flex;
+
+        & button {
+            margin: auto 0.5rem;
+        }
+
+        & .icon-button {
+            min-width: 0;
+
+            & a {
+                display: flex;
+            }
+            & img {
+                height: 1.2rem;
+                width: max-content;
+                margin: auto;
+            }
+        }
+    }
 }
