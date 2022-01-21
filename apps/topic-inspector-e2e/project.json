@@ -1,0 +1,28 @@
+{
+  "root": "apps/topic-inspector-e2e",
+  "sourceRoot": "apps/topic-inspector-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/topic-inspector-e2e/cypress.json",
+        "devServerTarget": "topic-inspector:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "topic-inspector:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/topic-inspector-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["topic-inspector"]
+}
