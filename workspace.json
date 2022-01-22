@@ -1,7 +1,8 @@
 {
-  "version": 2,
-  "projects": {
-    "topic-inspector": "apps/topic-inspector",
-    "topic-inspector-e2e": "apps/topic-inspector-e2e"
-  }
+    "version": 2,
+    "projects": {
+        "topic-inspector": "apps/topic-inspector",
+        "topic-inspector-e2e": "apps/topic-inspector-e2e",
+        "utils": "libs/utils"
+    }
 }

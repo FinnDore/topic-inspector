@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import { InspectTopics } from './inspect-topics';
+import { Header } from './header';
 
 describe('Inspect Topics', () => {
     it('should render successfully', () => {
-        const { baseElement } = render(<InspectTopics />);
+        const { baseElement } = render(<Header />);
         expect(baseElement).toBeTruthy();
     });
 });

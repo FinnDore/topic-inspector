@@ -2,17 +2,18 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_STATE } from '../default-state';
 import { StoreAction } from '../../_enums/store-action';
 
-export type UpdateKafkaLogDirsReducerPayload = PayloadAction<object>;
+export type setKafkaLogDirsReducerPayload = PayloadAction<object>;
 
 /**
- * Updates kafkaLogDirs in the store
+ * Sets the value of  kafkaLogDirs in the store
+ *
  * @param state the current store state
  * @param action the action to execute
- * @returns the updated state
+ * @returns {object} the updated state
  */
-export function updateKafkaLogDirsReducer(
+export function setKafkaLogDirsReducer(
     state = DEFAULT_STATE,
-    action: UpdateKafkaLogDirsReducerPayload
+    action: setKafkaLogDirsReducerPayload
 ) {
     if (action.type === StoreAction.UPDATE_KAFKA_LOG_DIRS) {
         console.log(state);

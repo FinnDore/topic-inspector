@@ -1,12 +1,17 @@
 import { TextField } from '@mui/material';
 import { ChangeEventHandler, useState } from 'react';
-import { updateKafkaLogDirs } from '../../../_store/_actions/update-kafak-log-dirs.action';
-import { makeSyncTo } from '../../../_utils/make-to-sync';
+import { setKafkaLogDirs } from '../../../_store/_actions/update-kafka-log-dirs.action';
+import { makeSyncTo } from '@topic-inspector/utils';
 import classes from './json-input.module.scss';
 
 const parse = makeSyncTo(JSON.parse);
 
-export function JsonInput() {
+/**
+ * Provides a input element for inputting [kafka-log-dirs](https://docs.cloudera.com/runtime/7.2.1/kafka-managing/topics/kafka-manage-cli-logdir.html) json then updates the global stores state with the inputted value if its valid JSON
+ *
+ * @returns {object} the component
+ */
+export function JsonInput(): JSX.Element {
     const [invalidJson, setInvalidJson] = useState(false);
 
     const handleInputChange: ChangeEventHandler<
@@ -18,7 +23,7 @@ export function JsonInput() {
         }
 
         setInvalidJson(false);
-        updateKafkaLogDirs(newValue);
+        setKafkaLogDirs(newValue);
     };
 
     return (

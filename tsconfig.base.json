@@ -13,7 +13,9 @@
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
-        "paths": {}
+        "paths": {
+            "@topic-inspector/utils": ["libs/utils/src/index.ts"]
+        }
     },
     "exclude": ["node_modules", "tmp"]
 }
