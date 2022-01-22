@@ -30,6 +30,39 @@
             "files": ["*.js", "*.jsx"],
             "extends": ["plugin:@nrwl/nx/javascript"],
             "rules": {}
+        },
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "valid-jsdoc": [
+                    2,
+                    {
+                        "requireReturnType": true,
+                        "requireParamDescription": true,
+                        "requireParamType": false,
+                        "requireReturn": true,
+                        "preferType": {
+                            "String": "string",
+                            "object": "object",
+                            "number": "number"
+                        },
+                        "prefer": {
+                            "return": "returns",
+                            "param": "param"
+                        }
+                    }
+                ],
+                "require-jsdoc": [
+                    2,
+                    {
+                        "require": {
+                            "FunctionDeclaration": true,
+                            "MethodDefinition": false,
+                            "ClassDeclaration": false
+                        }
+                    }
+                ]
+            }
         }
     ]
 }
