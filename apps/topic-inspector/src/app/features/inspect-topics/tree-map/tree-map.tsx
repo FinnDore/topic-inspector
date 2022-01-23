@@ -91,7 +91,11 @@ function TreeMap({
                     />
                     <Treemap<typeof data>
                         top={margin.top}
-                        root={data as any}
+                        root={
+                            data as unknown as HierarchyNode<
+                                HierarchyNode<HierarchyNode<TreeData>>
+                            >
+                        }
                         size={[xMax, yMax]}
                         tile={treemapSquarify}
                         round
