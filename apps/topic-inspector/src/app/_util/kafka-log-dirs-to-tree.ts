@@ -1,17 +1,15 @@
 import { KafkaLogDirs } from '../_interfaces/kafka-log-dirs.model';
+import { TreeData } from '../_interfaces/tree-data.model';
+import { formatBytes } from './format-bytes';
+
 /**
+ * Converts kafka-log-dirs to a tree
  *
  * @param dirs the kafka-log-dirs to convert to a tree
  * @returns {object} kafka log dirs in a format for a tree chart
  */
-export function kafkaLogDirsToTree(
-    dirs: KafkaLogDirs
-): { id: string; parent: string | null; size: number | null }[] {
-    const outputData: {
-        id: string;
-        parent: string | null;
-        size: number | null;
-    }[] = [{ id: 'root', parent: null, size: null }];
+export function kafkaLogDirsToTree(dirs: KafkaLogDirs): TreeData[] {
+    const outputData: TreeData[] = [{ id: 'root', parent: null, size: null }];
 
     for (const [index, broker] of dirs.brokers.entries()) {
         const brokerName = `broker-${index}`;
@@ -25,9 +23,12 @@ export function kafkaLogDirsToTree(
 
             for (const partition of logDir.partitions) {
                 outputData.push({
-                    id: `${brokerName}-${partition.partition}`,
+                    id: `${logDirName}-${partition.partition}`,
                     parent: logDirName,
-                    size: partition.size
+                    size: partition.size,
+                    toolTip: `${partition.partition} ${formatBytes(
+                        partition.size
+                    )}`
                 });
             }
         }

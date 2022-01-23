@@ -3,7 +3,7 @@
  */
 export enum StoreAction {
     /**
-     * Update {@}
+     * Update kafkaLogDirs
      */
     UPDATE_KAFKA_LOG_DIRS = 'UPDATE_KAFKA_LOG_DIRS'
 }

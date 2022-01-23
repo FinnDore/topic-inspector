@@ -1,27 +1,28 @@
 import { Group } from '@visx/group';
-import { hierarchy, stratify, Treemap, treemapSquarify } from '@visx/hierarchy';
-import shakespeare, {
-    Shakespeare
-} from '@visx/mock-data/lib/mocks/shakespeare';
+import { Treemap, treemapSquarify } from '@visx/hierarchy';
+import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
-import { useTooltip, useTooltipInPortal } from '@visx/tooltip';
+import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { ReactElement, useCallback } from 'react';
+import { TreeData } from '../../../_interfaces/tree-data.model';
 import './tree-map.module.scss';
-export const color1 = '#fc1703';
+
+export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
 export const background = 'black';
 
-const colorScale = scaleLinear<string>({
-    domain: [0, 436000],
-    range: [color2, color1]
-});
+const tooltipStyles = {
+    ...defaultStyles,
+    backgroundColor: 'white',
+    padding: 7
+};
 
-const defaultMargin = { top: 10, left: 10, right: 10, bottom: 10 };
+const DEFAULT_MARGIN = { top: 10, left: 10, right: 10, bottom: 10 };
 
 export type TreeMapProps = {
     width: number;
     height: number;
-    data?: any;
+    data: HierarchyNode<HierarchyNode<TreeData>>;
     margin?: { top: number; right: number; bottom: number; left: number };
 };
 
@@ -35,12 +36,13 @@ function TreeMap({
     width,
     height,
     data,
-    margin = defaultMargin
+    margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
     const { TooltipInPortal, containerBounds } = useTooltipInPortal({
         detectBounds: true,
         scroll: true
     });
+
     const {
         tooltipData,
         tooltipLeft,
@@ -49,36 +51,47 @@ function TreeMap({
         showTooltip,
         hideTooltip
     } = useTooltip();
-    const handleMouseOver = useCallback(
-        (event: any, datum: any): void => {
-            const containerX = event.clientX - containerBounds.left;
-            const containerY = event.clientY - containerBounds.top;
 
-            showTooltip({
-                tooltipLeft: containerX,
-                tooltipTop: containerY,
-                tooltipData: datum
-            });
-        },
-        [containerBounds]
-    );
+    const handleMouseOver = (
+        event: React.PointerEvent<SVGRectElement>,
+        datum: TreeData
+    ): void => {
+        const containerX = event.clientX - containerBounds.left;
+        const containerY = event.clientY - containerBounds.top;
+
+        showTooltip({
+            tooltipLeft: containerX,
+            tooltipTop: containerY,
+
+            tooltipData: datum?.toolTip ?? 'Unknown size'
+        });
+    };
+
+    const colorScale = useCallback(
+        () =>
+            scaleLinear<string>({
+                domain: [0, data.value ?? 0],
+                range: [color2, color1]
+            }),
+        [data]
+    )();
 
     const xMax = width - margin.left - margin.right;
     const yMax = height - margin.top - margin.bottom;
 
     return (
-        <div>
+        <>
             <div>
                 <svg width={width} height={height} onMouseOut={hideTooltip}>
                     <rect
                         width={width}
                         height={height}
-                        rx={14}
+                        rx={5}
                         fill={background}
                     />
                     <Treemap<typeof data>
                         top={margin.top}
-                        root={data}
+                        root={data as any}
                         size={[xMax, yMax]}
                         tile={treemapSquarify}
                         round
@@ -97,28 +110,20 @@ function TreeMap({
                                                 top={node.y0 + margin.top}
                                                 left={node.x0 + margin.left}
                                             >
-                                                {node.depth === 1 && (
-                                                    <rect
-                                                        width={nodeWidth}
-                                                        height={nodeHeight}
-                                                        stroke={background}
-                                                        strokeWidth={4}
-                                                        fill="transparent"
-                                                        onPointerMove={
-                                                            handleMouseOver as any
-                                                        }
-                                                    />
-                                                )}
                                                 {node.depth > 2 && (
                                                     <rect
                                                         width={nodeWidth}
                                                         height={nodeHeight}
                                                         stroke={background}
-                                                        onPointerMove={
-                                                            handleMouseOver as any
+                                                        onPointerMove={e =>
+                                                            handleMouseOver(
+                                                                e,
+                                                                node.data
+                                                                    .data as unknown as TreeData
+                                                            )
                                                         }
                                                         fill={colorScale(
-                                                            node.value || 0
+                                                            node.value ?? 0
                                                         )}
                                                     />
                                                 )}
@@ -136,11 +141,12 @@ function TreeMap({
                     key={Math.random()}
                     top={tooltipTop}
                     left={tooltipLeft}
+                    style={tooltipStyles}
                 >
-                    Data value <strong>{tooltipData}</strong>
+                    <strong>{tooltipData}</strong>
                 </TooltipInPortal>
             )}
-        </div>
+        </>
     );
 }
 
