@@ -3,13 +3,16 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './app';
 import { GlobalStore } from './_store/store';
+import classes from './app.module.scss';
 
 describe('App', () => {
     it('should render successfully', () => {
         const { baseElement } = render(
             <Provider store={GlobalStore}>
                 <BrowserRouter>
-                    <App />
+                    <div>
+                        <App />
+                    </div>
                 </BrowserRouter>
             </Provider>
         );
