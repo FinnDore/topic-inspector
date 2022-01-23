@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
+import { makeSyncTo } from '@topic-inspector/utils';
 import { ChangeEventHandler, useState } from 'react';
 import { setKafkaLogDirs } from '../../../_store/_actions/update-kafka-log-dirs.action';
-import { makeSyncTo } from '@topic-inspector/utils';
 import classes from './json-input.module.scss';
 
 const parse = makeSyncTo(JSON.parse);
@@ -33,7 +33,7 @@ export function JsonInput(): JSX.Element {
                 id="outlined-multiline-flexible"
                 label="Kafka log dir output "
                 multiline
-                maxRows="10"
+                maxRows="5"
                 error={invalidJson}
                 helperText={invalidJson ? 'Invalid Json' : ''}
                 onChange={handleInputChange}
@@ -41,5 +41,3 @@ export function JsonInput(): JSX.Element {
         </div>
     );
 }
-
-export default JsonInput;

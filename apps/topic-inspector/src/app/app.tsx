@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
-import InspectTopics from './features/inspect-topics/inspect-topics';
+import classes from './app.module.scss';
+import { InspectTopics } from './features/inspect-topics/inspect-topics';
 import { Header } from './header/header';
-
 /**
  * The app component
  *
@@ -9,7 +9,7 @@ import { Header } from './header/header';
  */
 export function App() {
     return (
-        <>
+        <div className={classes['container']}>
             <Header></Header>
             <Route
                 path="/"
@@ -18,8 +18,6 @@ export function App() {
             />
             <Route path="/about" exact render={() => <div>about</div>} />
             <Route path="/help" exact render={() => <div>help</div>} />
-        </>
+        </div>
     );
 }
-
-export default App;

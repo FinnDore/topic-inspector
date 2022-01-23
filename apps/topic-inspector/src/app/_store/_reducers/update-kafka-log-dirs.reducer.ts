@@ -16,7 +16,6 @@ export function setKafkaLogDirsReducer(
     action: setKafkaLogDirsReducerPayload
 ) {
     if (action.type === StoreAction.UPDATE_KAFKA_LOG_DIRS) {
-        console.log(state);
         return { ...action.payload };
     }
 
