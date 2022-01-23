@@ -41,5 +41,3 @@ export function JsonInput(): JSX.Element {
         </div>
     );
 }
-
-export default JsonInput;

@@ -3,14 +3,14 @@ import { hierarchy, stratify } from '@visx/hierarchy';
 import { ParentSize } from '@visx/responsive';
 import { ReactElement, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import TEST_DATA from '../../../static/kafka-log-dirs-output';
+import { TreeData } from '../../_interfaces/tree-data.model';
 import { RootState } from '../../_store/store';
+import { setKafkaLogDirs } from '../../_store/_actions/update-kafka-log-dirs.action';
 import { kafkaLogDirsToTree } from '../../_util/kafka-log-dirs-to-tree';
 import classes from './inspect-topics.module.scss';
-import JsonInput from './json-input/json-input';
+import { JsonInput } from './json-input/json-input';
 import TreeMap from './tree-map/tree-map';
-import TEST_DATA from '../../../static/kafka-log-dirs-output';
-import { setKafkaLogDirs } from '../../_store/_actions/update-kafka-log-dirs.action';
-import { TreeData } from '../../_interfaces/tree-data.model';
 
 /**
  * Feature page for ingesting [kafka-log-dirs](https://docs.cloudera.com/runtime/7.2.1/kafka-managing/topics/kafka-manage-cli-logdir.html) and displaying the visualization for it
@@ -70,5 +70,3 @@ export function InspectTopics(): ReactElement {
         </div>
     );
 }
-
-export default InspectTopics;

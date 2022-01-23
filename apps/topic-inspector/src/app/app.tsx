@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
-import InspectTopics from './features/inspect-topics/inspect-topics';
-import { Header } from './header/header';
 import classes from './app.module.scss';
+import { InspectTopics } from './features/inspect-topics/inspect-topics';
+import { Header } from './header/header';
 /**
  * The app component
  *
@@ -21,5 +21,3 @@ export function App() {
         </div>
     );
 }
-
-export default App;
