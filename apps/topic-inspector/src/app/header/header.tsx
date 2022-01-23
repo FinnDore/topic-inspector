@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import GITHUB_MARK_DARK from '../../assets/github-mark-dark.png';
 import classes from './header.module.scss';
+
 const GITHUB_LINK = 'https://github.com/FinnDore/topic-inspector';
 
 /**
@@ -23,15 +24,15 @@ export function Header() {
                 <Link to="/about">
                     <Button>About</Button>
                 </Link>
-                <Button
-                    className={classes['icon-button']}
-                    color="primary"
-                    aria-label="Goto topic inspectors github"
-                >
-                    <a href={GITHUB_LINK}>
+                <a href={GITHUB_LINK} target="_blank" rel="noreferrer">
+                    <Button
+                        className={classes['icon-button']}
+                        color="primary"
+                        aria-label="Goto topic inspectors github"
+                    >
                         <img src={GITHUB_MARK_DARK} alt="Github mark"></img>
-                    </a>
-                </Button>
+                    </Button>
+                </a>
             </div>
         </header>
     );

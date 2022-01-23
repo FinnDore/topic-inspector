@@ -1,0 +1,25 @@
+{
+    "root": "apps/tauri-client",
+    "sourceRoot": "apps/tauri-client/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    "cd ./apps/tauri-client && npm i && npm run tauri build"
+                ]
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    "cd ./apps/tauri-client && npm i && npm run tauri dev"
+                ]
+            }
+        }
+    },
+    "tags": [],
+    "implicitDependencies": ["topic-inspector"]
+}
