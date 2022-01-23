@@ -1,6 +1,7 @@
 {
     "version": 2,
     "projects": {
+        "tauri-client": "apps/tauri-client",
         "topic-inspector": "apps/topic-inspector",
         "topic-inspector-e2e": "apps/topic-inspector-e2e",
         "utils": "libs/utils"
