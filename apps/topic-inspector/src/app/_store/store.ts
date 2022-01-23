@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setKafkaLogDirsReducer } from './_reducers/update-kafka-log-dirs.reducer';
+import { updateThemeReducer } from './_reducers/update-theme.reducer';
 
 const rootReducer = combineReducers({
-    updateKafkaLogDirsReducer: setKafkaLogDirsReducer
+    updateKafkaLogDirsReducer: setKafkaLogDirsReducer,
+    themeMode: updateThemeReducer
 });
 
 export const GlobalStore = configureStore({
