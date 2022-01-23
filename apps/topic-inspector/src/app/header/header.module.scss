@@ -1,4 +1,7 @@
+@import '../../variables.scss';
+
 .header {
+    height: $nav-height;
     width: 100%;
     display: flex;
     justify-content: space-between;

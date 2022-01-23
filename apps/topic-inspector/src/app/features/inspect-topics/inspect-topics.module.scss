@@ -1,1 +1,13 @@
 /* Your styles goes here. */
+@import '../../../variables.scss';
+.container {
+    display: flex;
+    flex-flow: column;
+    // height: calc(100% - $nav-height);
+    height: 70rem;
+}
+
+.chart {
+    min-height: 10px;
+    height: 100%;
+}
