@@ -4,6 +4,7 @@ import { ParentSize } from '@visx/responsive';
 import { ReactElement, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import TEST_DATA from '../../../static/kafka-log-dirs-output';
+import { KafkaLogDirs } from '../../_interfaces/kafka-log-dirs.model';
 import { TreeData } from '../../_interfaces/tree-data.model';
 import { RootState } from '../../_store/store';
 import { setKafkaLogDirs } from '../../_store/_actions/update-kafka-log-dirs.action';
@@ -18,47 +19,65 @@ import TreeMap from './tree-map/tree-map';
  * @returns {object} the component
  */
 export function InspectTopics(): ReactElement {
-    const dataSelector = useSelector(
+    const dataSelector: KafkaLogDirs = useSelector(
         ({ updateKafkaLogDirsReducer }: RootState) => updateKafkaLogDirsReducer
     );
 
-    const root = useCallback(() => {
+    const roots = useCallback(() => {
         if (!dataSelector) {
             return null;
         }
-        try {
-            const data = stratify<TreeData>()
-                .id(d => d.id)
-                .parentId(d => d.parent)(kafkaLogDirsToTree(dataSelector))
-                .sum(d => d.size || 0);
 
-            return hierarchy(data).sort(
-                (a, b) => (b.value || 0) - (a.value || 0)
-            );
-        } catch {
-            return null;
+        const roots = [];
+        const brokers = kafkaLogDirsToTree(dataSelector);
+        for (const broker of brokers) {
+            try {
+                const data = stratify<TreeData>()
+                    .id(d => d.id)
+                    .parentId(d => d.parent)(broker)
+                    .sum(d => d.size || 0);
+
+                roots.push(
+                    hierarchy(data).sort(
+                        (a, b) => (b.value || 0) - (a.value || 0)
+                    )
+                );
+            } catch (e) {
+                continue;
+            }
         }
+        return roots;
     }, [dataSelector])();
 
+    console.log(roots);
+    //
     return (
-        <div className={classes['container']}>
+        <>
+            {' '}
             <JsonInput></JsonInput>
-            {root ? (
-                <div className={classes['chart']}>
-                    <ParentSize>
-                        {parent => (
-                            <TreeMap
-                                width={parent.width}
-                                height={parent.height}
-                                data={root}
-                            ></TreeMap>
-                        )}
-                    </ParentSize>
-                </div>
+            {roots ? (
+                roots.map((root, i) => (
+                    <>
+                        <h3 className={classes['broker-name']}>
+                            Broker: {dataSelector.brokers[i].broker}
+                        </h3>
+                        <div className={classes['chart']}>
+                            <ParentSize>
+                                {parent => (
+                                    <TreeMap
+                                        width={parent.width}
+                                        height={parent.height}
+                                        data={root}
+                                    />
+                                )}
+                            </ParentSize>
+                        </div>
+                    </>
+                ))
             ) : (
                 <div className={classes['no-data']}>
                     <p>Enter some data </p>
-                    <strong>or</strong>{' '}
+                    <strong>or</strong>
                     <Button
                         variant="outlined"
                         onClick={() => setKafkaLogDirs(TEST_DATA)}
@@ -67,6 +86,6 @@ export function InspectTopics(): ReactElement {
                     </Button>
                 </div>
             )}
-        </div>
+        </>
     );
 }

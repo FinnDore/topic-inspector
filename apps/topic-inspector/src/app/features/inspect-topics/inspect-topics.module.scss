@@ -1,20 +1,17 @@
 /* Your styles goes here. */
 @import '../../../variables.scss';
-.container {
-    display: flex;
-    flex-flow: column;
-    height: 70rem;
-    & > :first-child {
-        margin-bottom: 0.5rem;
-    }
+
+.broker-name {
+    margin: 0 0 0.5em 0;
 }
 
 .chart {
-    min-height: 10px;
-    height: 100%;
+    min-height: 0;
     box-shadow: rgb(0 0 0 / 20%) 0 3px 3px -2px, rgb(0 0 0 / 14%) 0 3px 4px 0,
         rgb(0 0 0 / 12%) 0 1px 8px 0;
+    height: 60rem;
     border-radius: 5px;
+    margin-bottom: 2rem;
 }
 
 .no-data {

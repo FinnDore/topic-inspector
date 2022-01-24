@@ -1,20 +1,25 @@
 import { Group } from '@visx/group';
 import { Treemap, treemapSquarify } from '@visx/hierarchy';
-import { HierarchyNode } from '@visx/hierarchy/lib/types';
+import {
+    HierarchyNode,
+    HierarchyRectangularNode
+} from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
+import { Text } from '@visx/text';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
-import { ReactElement, useCallback } from 'react';
+import { memo, ReactElement, useCallback } from 'react';
 import { TreeData } from '../../../_interfaces/tree-data.model';
-import './tree-map.module.scss';
 
 export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
 export const background = 'black';
 
-const tooltipStyles = {
+const tooltipStyles: React.CSSProperties = {
     ...defaultStyles,
-    backgroundColor: 'white',
-    padding: 7
+    color: 'white',
+    padding: 7,
+    backgroundColor: 'rgba(255, 255, 255, .15)',
+    backdropFilter: 'blur(5px)'
 };
 
 const DEFAULT_MARGIN = { top: 10, left: 10, right: 10, bottom: 10 };
@@ -32,7 +37,7 @@ export type TreeMapProps = {
  * @param props the input props
  * @returns {object} the component
  */
-function TreeMap({
+export function TreeMap({
     width,
     height,
     data,
@@ -63,7 +68,8 @@ function TreeMap({
             tooltipLeft: containerX,
             tooltipTop: containerY,
 
-            tooltipData: datum?.toolTip ?? 'Unknown size'
+            tooltipData:
+                `${datum?.topicName}  ${datum.topicSize} ` ?? 'Unknown size'
         });
     };
 
@@ -76,45 +82,47 @@ function TreeMap({
         [data]
     )();
 
-    const xMax = width - margin.left - margin.right;
-    const yMax = height - margin.top - margin.bottom;
+    const xMaxYmax = useCallback(
+        (): [number, number] => [
+            width - margin.left - margin.right,
+            height - margin.top - margin.bottom
+        ],
+        [width, height]
+    )();
 
     return (
         <>
-            <div>
-                <svg width={width} height={height} onMouseOut={hideTooltip}>
-                    <rect
-                        width={width}
-                        height={height}
-                        rx={5}
-                        fill={background}
-                    />
-                    <Treemap<typeof data>
-                        top={margin.top}
-                        root={
-                            data as unknown as HierarchyNode<
-                                HierarchyNode<HierarchyNode<TreeData>>
-                            >
-                        }
-                        size={[xMax, yMax]}
-                        tile={treemapSquarify}
-                        round
-                    >
-                        {treemap => (
-                            <Group>
-                                {treemap
-                                    .descendants()
-                                    .reverse()
-                                    .map((node, i) => {
-                                        const nodeWidth = node.x1 - node.x0;
-                                        const nodeHeight = node.y1 - node.y0;
-                                        return (
-                                            <Group
-                                                key={`node-${i}`}
-                                                top={node.y0 + margin.top}
-                                                left={node.x0 + margin.left}
-                                            >
-                                                {node.depth > 2 && (
+            <svg width={width} height={height} onMouseOut={hideTooltip}>
+                <rect width={width} height={height} rx={5} fill={background} />
+                <Treemap<typeof data>
+                    top={margin.top}
+                    root={data as unknown as any}
+                    size={xMaxYmax}
+                    tile={treemapSquarify}
+                    round
+                >
+                    {treeMap => (
+                        <Group>
+                            {treeMap
+                                .descendants()
+                                .reverse()
+                                .map((node: any) => {
+                                    const nodeWidth = node.x1 - node.x0;
+                                    const nodeHeight = node.y1 - node.y0;
+                                    const data = node.data
+                                        .data as unknown as TreeData;
+                                    const textWidth =
+                                        nodeWidth - margin.left * 2;
+                                    const fit = 'shrink-only';
+
+                                    return (
+                                        <Group
+                                            key={data.id}
+                                            top={node.y0 + margin.top}
+                                            left={node.x0 + margin.left}
+                                        >
+                                            {node.depth > 0 && (
+                                                <>
                                                     <rect
                                                         width={nodeWidth}
                                                         height={nodeHeight}
@@ -122,23 +130,50 @@ function TreeMap({
                                                         onPointerMove={e =>
                                                             handleMouseOver(
                                                                 e,
-                                                                node.data
-                                                                    .data as unknown as TreeData
+                                                                data
                                                             )
                                                         }
                                                         fill={colorScale(
                                                             node.value ?? 0
                                                         )}
                                                     />
-                                                )}
-                                            </Group>
-                                        );
-                                    })}
-                            </Group>
-                        )}
-                    </Treemap>
-                </svg>
-            </div>
+
+                                                    <Text
+                                                        x={margin.left}
+                                                        y={margin.top}
+                                                        height={nodeHeight}
+                                                        width={textWidth}
+                                                        fill="white"
+                                                        style={{
+                                                            fontWeight: 'bolder'
+                                                        }}
+                                                        verticalAnchor="start"
+                                                        scaleToFit={fit}
+                                                    >
+                                                        {data.topicSize}
+                                                    </Text>
+                                                    <Text
+                                                        x={margin.left}
+                                                        y={margin.top}
+                                                        width={textWidth}
+                                                        height={nodeHeight}
+                                                        dy={'1.1em'}
+                                                        scaleToFit={fit}
+                                                        fill="white"
+                                                        verticalAnchor="start"
+                                                    >
+                                                        {data.topicName}
+                                                    </Text>
+                                                </>
+                                            )}
+                                        </Group>
+                                    );
+                                })}
+                        </Group>
+                    )}
+                </Treemap>
+            </svg>
+
             {tooltipOpen && (
                 <TooltipInPortal
                     // set this to random so it correctly updates with parent bounds
