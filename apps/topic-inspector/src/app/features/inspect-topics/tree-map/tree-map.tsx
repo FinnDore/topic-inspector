@@ -5,16 +5,18 @@ import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { ReactElement, useCallback } from 'react';
 import { TreeData } from '../../../_interfaces/tree-data.model';
-import './tree-map.module.scss';
+import { TreeMapText } from './tree-map-text/tree-map';
 
 export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
 export const background = 'black';
 
-const tooltipStyles = {
+const tooltipStyles: React.CSSProperties = {
     ...defaultStyles,
-    backgroundColor: 'white',
-    padding: 7
+    color: 'white',
+    padding: 7,
+    backgroundColor: 'rgba(255, 255, 255, .15)',
+    backdropFilter: 'blur(5px)'
 };
 
 const DEFAULT_MARGIN = { top: 10, left: 10, right: 10, bottom: 10 };
@@ -32,7 +34,7 @@ export type TreeMapProps = {
  * @param props the input props
  * @returns {object} the component
  */
-function TreeMap({
+export function TreeMap({
     width,
     height,
     data,
@@ -63,58 +65,68 @@ function TreeMap({
             tooltipLeft: containerX,
             tooltipTop: containerY,
 
-            tooltipData: datum?.toolTip ?? 'Unknown size'
+            tooltipData:
+                `${datum?.topicName}  ${datum.topicSize} ` ?? 'Unknown size'
         });
     };
 
-    const colorScale = useCallback(
-        () =>
-            scaleLinear<string>({
-                domain: [0, data.value ?? 0],
-                range: [color2, color1]
-            }),
-        [data]
-    )();
+    const colorScale = useCallback(() => {
+        const maxValue = Math.max(
+            ...(data
+                .descendants()
+                .filter(x => x.depth > 0)
+                .map(x => x.data.data.size)
+                .filter(x => typeof x === 'number') as number[])
+        );
 
-    const xMax = width - margin.left - margin.right;
-    const yMax = height - margin.top - margin.bottom;
+        return scaleLinear<string>({
+            domain: [0, maxValue + maxValue * 0 ?? 0],
+            range: [color2, color1]
+        });
+    }, [data])();
+
+    const xMaxYmax = useCallback(
+        (): [number, number] => [
+            width - margin.left - margin.right,
+            height - margin.top - margin.bottom
+        ],
+        [width, height, margin]
+    )();
 
     return (
         <>
-            <div>
-                <svg width={width} height={height} onMouseOut={hideTooltip}>
-                    <rect
-                        width={width}
-                        height={height}
-                        rx={5}
-                        fill={background}
-                    />
-                    <Treemap<typeof data>
-                        top={margin.top}
-                        root={
-                            data as unknown as HierarchyNode<
-                                HierarchyNode<HierarchyNode<TreeData>>
-                            >
-                        }
-                        size={[xMax, yMax]}
-                        tile={treemapSquarify}
-                        round
-                    >
-                        {treemap => (
-                            <Group>
-                                {treemap
-                                    .descendants()
-                                    .reverse()
-                                    .map((node, i) => {
-                                        const nodeWidth = node.x1 - node.x0;
-                                        const nodeHeight = node.y1 - node.y0;
-                                        return (
-                                            <Group
-                                                key={`node-${i}`}
-                                                top={node.y0 + margin.top}
-                                                left={node.x0 + margin.left}
-                                            >
-                                                {node.depth > 2 && (
+            <svg width={width} height={height} onMouseOut={hideTooltip}>
+                <rect width={width} height={height} rx={5} fill={background} />
+                <Treemap<typeof data>
+                    top={margin.top}
+                    root={
+                        data as unknown as HierarchyNode<
+                            HierarchyNode<HierarchyNode<TreeData>>
+                        >
+                    }
+                    size={xMaxYmax}
+                    tile={treemapSquarify}
+                    round
+                >
+                    {treeMap => (
+                        <Group>
+                            {treeMap
+                                .descendants()
+                                .reverse()
+                                .map(node => {
+                                    const nodeWidth = node.x1 - node.x0;
+                                    const nodeHeight = node.y1 - node.y0;
+                                    const data = node.data
+                                        .data as unknown as TreeData;
+
+                                    return (
+                                        <Group
+                                            key={data.id}
+                                            top={node.y0 + margin.top}
+                                            left={node.x0 + margin.left}
+                                        >
+                                            {node.depth > 0 && (
+                                                <>
                                                     <rect
                                                         width={nodeWidth}
                                                         height={nodeHeight}
@@ -122,23 +134,30 @@ function TreeMap({
                                                         onPointerMove={e =>
                                                             handleMouseOver(
                                                                 e,
-                                                                node.data
-                                                                    .data as unknown as TreeData
+                                                                data
                                                             )
                                                         }
                                                         fill={colorScale(
                                                             node.value ?? 0
                                                         )}
                                                     />
-                                                )}
-                                            </Group>
-                                        );
-                                    })}
-                            </Group>
-                        )}
-                    </Treemap>
-                </svg>
-            </div>
+                                                    <TreeMapText
+                                                        data={data}
+                                                        marginLeft={margin.left}
+                                                        marginTop={margin.top}
+                                                        nodeHeight={nodeHeight}
+                                                        nodeWidth={nodeWidth}
+                                                    ></TreeMapText>
+                                                </>
+                                            )}
+                                        </Group>
+                                    );
+                                })}
+                        </Group>
+                    )}
+                </Treemap>
+            </svg>
+
             {tooltipOpen && (
                 <TooltipInPortal
                     // set this to random so it correctly updates with parent bounds

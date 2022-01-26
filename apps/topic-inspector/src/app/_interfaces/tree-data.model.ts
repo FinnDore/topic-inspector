@@ -14,8 +14,13 @@ export interface TreeData {
      * {@property} size of the current node
      */
     size: number | null;
+
     /**
-     * {@property} the tooltip string to show
+     * {@property} the topicName
      */
-    toolTip?: string;
+    topicName?: string;
+    /**
+     * {@property} the formatted size
+     */
+    topicSize?: string;
 }

@@ -8,30 +8,36 @@ import { formatBytes } from './format-bytes';
  * @param dirs the kafka-log-dirs to convert to a tree
  * @returns {object} kafka log dirs in a format for a tree chart
  */
-export function kafkaLogDirsToTree(dirs: KafkaLogDirs): TreeData[] {
-    const outputData: TreeData[] = [{ id: 'root', parent: null, size: null }];
+export function kafkaLogDirsToTree(dirs: KafkaLogDirs): TreeData[][] {
+    const outputData: TreeData[][] = [];
 
     for (const [index, broker] of dirs.brokers.entries()) {
         const brokerName = `broker-${index}`;
-        outputData.push({ id: brokerName, parent: 'root', size: null });
-        for (const [logDirIndex, logDir] of broker.logDirs.entries()) {
-            if (logDir.error) {
-                break;
-            }
-            const logDirName = `${brokerName}-${logDirIndex}`;
-            outputData.push({ id: logDirName, parent: brokerName, size: null });
+        const topicsForBroker: TreeData[] = [
+            { id: 'root', parent: null, size: null }
+        ];
 
-            for (const partition of logDir.partitions) {
-                outputData.push({
-                    id: `${logDirName}-${partition.partition}`,
-                    parent: logDirName,
-                    size: partition.size,
-                    toolTip: `${partition.partition} ${formatBytes(
-                        partition.size
-                    )}`
-                });
-            }
+        const logDir = broker.logDirs[0];
+        if (logDir?.error) {
+            break;
         }
+
+        for (const partition of logDir.partitions) {
+            if (partition.size === 0) {
+                continue;
+            }
+
+            topicsForBroker.push({
+                id: `${brokerName}-${partition.partition}`,
+                parent: 'root',
+                size: partition.size,
+                topicSize: formatBytes(partition.size),
+                topicName: partition.partition
+            });
+        }
+
+        outputData.push(topicsForBroker);
     }
+
     return outputData;
 }
