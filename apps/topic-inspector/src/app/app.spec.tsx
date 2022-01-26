@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './app';
 import { GlobalStore } from './_store/store';
-import classes from './app.module.scss';
+
+global.ResizeObserver = require('resize-observer-polyfill');
 
 describe('App', () => {
     it('should render successfully', () => {

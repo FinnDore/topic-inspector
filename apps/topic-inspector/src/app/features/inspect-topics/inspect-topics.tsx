@@ -49,15 +49,12 @@ export function InspectTopics(): ReactElement {
         return roots;
     }, [dataSelector])();
 
-    console.log(roots);
-    //
     return (
         <>
-            {' '}
             <JsonInput></JsonInput>
             {roots ? (
                 roots.map((root, i) => (
-                    <>
+                    <div key={i}>
                         <h3 className={classes['broker-name']}>
                             Broker: {dataSelector.brokers[i].broker}
                         </h3>
@@ -72,7 +69,7 @@ export function InspectTopics(): ReactElement {
                                 )}
                             </ParentSize>
                         </div>
-                    </>
+                    </div>
                 ))
             ) : (
                 <div className={classes['no-data']}>

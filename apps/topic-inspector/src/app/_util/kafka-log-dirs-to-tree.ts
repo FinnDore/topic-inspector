@@ -26,6 +26,7 @@ export function kafkaLogDirsToTree(dirs: KafkaLogDirs): TreeData[][] {
             if (partition.size === 0) {
                 continue;
             }
+
             topicsForBroker.push({
                 id: `${brokerName}-${partition.partition}`,
                 parent: 'root',
@@ -37,5 +38,6 @@ export function kafkaLogDirsToTree(dirs: KafkaLogDirs): TreeData[][] {
 
         outputData.push(topicsForBroker);
     }
+
     return outputData;
 }
