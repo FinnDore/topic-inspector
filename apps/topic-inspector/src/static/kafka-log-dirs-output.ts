@@ -42,6 +42,12 @@ export default {
                             offsetLag: 0,
                             partition: 'PINEAPPLE.TO.PIZZA',
                             size: 436000
+                        },
+                        {
+                            isFuture: false,
+                            offsetLag: 0,
+                            partition: 'SMALL.TO.CAE',
+                            size: 25900
                         }
                     ]
                 }

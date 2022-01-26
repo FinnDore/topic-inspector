@@ -1,14 +1,11 @@
 import { Group } from '@visx/group';
 import { Treemap, treemapSquarify } from '@visx/hierarchy';
-import {
-    HierarchyNode,
-    HierarchyRectangularNode
-} from '@visx/hierarchy/lib/types';
+import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
-import { Text } from '@visx/text';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
-import { memo, ReactElement, useCallback } from 'react';
+import { ReactElement, useCallback } from 'react';
 import { TreeData } from '../../../_interfaces/tree-data.model';
+import { TreeMapText } from './tree-map-text/tree-map';
 
 export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
@@ -73,14 +70,20 @@ export function TreeMap({
         });
     };
 
-    const colorScale = useCallback(
-        () =>
-            scaleLinear<string>({
-                domain: [0, data.value ?? 0],
-                range: [color2, color1]
-            }),
-        [data]
-    )();
+    const colorScale = useCallback(() => {
+        const maxValue = Math.max(
+            ...(data
+                .descendants()
+                .filter(x => x.depth > 0)
+                .map(x => x.data.data.size)
+                .filter(x => typeof x === 'number') as number[])
+        );
+
+        return scaleLinear<string>({
+            domain: [0, maxValue + maxValue * 0 ?? 0],
+            range: [color2, color1]
+        });
+    }, [data])();
 
     const xMaxYmax = useCallback(
         (): [number, number] => [
@@ -111,9 +114,6 @@ export function TreeMap({
                                     const nodeHeight = node.y1 - node.y0;
                                     const data = node.data
                                         .data as unknown as TreeData;
-                                    const textWidth =
-                                        nodeWidth - margin.left * 2;
-                                    const fit = 'shrink-only';
 
                                     return (
                                         <Group
@@ -137,33 +137,13 @@ export function TreeMap({
                                                             node.value ?? 0
                                                         )}
                                                     />
-
-                                                    <Text
-                                                        x={margin.left}
-                                                        y={margin.top}
-                                                        height={nodeHeight}
-                                                        width={textWidth}
-                                                        fill="white"
-                                                        style={{
-                                                            fontWeight: 'bolder'
-                                                        }}
-                                                        verticalAnchor="start"
-                                                        scaleToFit={fit}
-                                                    >
-                                                        {data.topicSize}
-                                                    </Text>
-                                                    <Text
-                                                        x={margin.left}
-                                                        y={margin.top}
-                                                        width={textWidth}
-                                                        height={nodeHeight}
-                                                        dy={'1.1em'}
-                                                        scaleToFit={fit}
-                                                        fill="white"
-                                                        verticalAnchor="start"
-                                                    >
-                                                        {data.topicName}
-                                                    </Text>
+                                                    <TreeMapText
+                                                        data={data}
+                                                        marginLeft={margin.left}
+                                                        marginTop={margin.top}
+                                                        nodeHeight={nodeHeight}
+                                                        nodeWidth={nodeWidth}
+                                                    ></TreeMapText>
                                                 </>
                                             )}
                                         </Group>

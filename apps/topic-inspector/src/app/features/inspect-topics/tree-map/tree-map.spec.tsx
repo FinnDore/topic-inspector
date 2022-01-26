@@ -13,7 +13,7 @@ describe('TreeMap', () => {
     it('should render successfully', () => {
         const data = stratify<TreeData>()
             .id(d => d.id)
-            .parentId(d => d.parent)(kafkaLogDirsToTree(TEST_DATA))
+            .parentId(d => d.parent)(kafkaLogDirsToTree(TEST_DATA)[0])
             .sum(d => d.size || 0);
 
         const dataToUse = hierarchy(data).sort(
