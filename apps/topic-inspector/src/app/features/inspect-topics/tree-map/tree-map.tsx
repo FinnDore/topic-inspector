@@ -90,7 +90,7 @@ export function TreeMap({
             width - margin.left - margin.right,
             height - margin.top - margin.bottom
         ],
-        [width, height]
+        [width, height, margin]
     )();
 
     return (
@@ -99,7 +99,11 @@ export function TreeMap({
                 <rect width={width} height={height} rx={5} fill={background} />
                 <Treemap<typeof data>
                     top={margin.top}
-                    root={data as unknown as any}
+                    root={
+                        data as unknown as HierarchyNode<
+                            HierarchyNode<HierarchyNode<TreeData>>
+                        >
+                    }
                     size={xMaxYmax}
                     tile={treemapSquarify}
                     round
@@ -109,7 +113,7 @@ export function TreeMap({
                             {treeMap
                                 .descendants()
                                 .reverse()
-                                .map((node: any) => {
+                                .map(node => {
                                     const nodeWidth = node.x1 - node.x0;
                                     const nodeHeight = node.y1 - node.y0;
                                     const data = node.data
