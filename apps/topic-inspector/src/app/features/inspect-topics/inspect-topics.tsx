@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { hierarchy, stratify } from '@visx/hierarchy';
 import { ParentSize } from '@visx/responsive';
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import TEST_DATA from '../../../static/kafka-log-dirs-output';
 import { KafkaLogDirs } from '../../_interfaces/kafka-log-dirs.model';
@@ -23,12 +23,12 @@ export function InspectTopics(): ReactElement {
         ({ updateKafkaLogDirsReducer }: RootState) => updateKafkaLogDirsReducer
     );
 
-    const roots = useCallback(() => {
+    const roots = useMemo(() => {
         if (!dataSelector) {
             return null;
         }
 
-        const roots = [];
+        const currentRoots = [];
         const brokers = kafkaLogDirsToTree(dataSelector);
         for (const broker of brokers) {
             try {
@@ -37,7 +37,7 @@ export function InspectTopics(): ReactElement {
                     .parentId(d => d.parent)(broker)
                     .sum(d => d.size || 0);
 
-                roots.push(
+                currentRoots.push(
                     hierarchy(data).sort(
                         (a, b) => (b.value || 0) - (a.value || 0)
                     )
@@ -46,8 +46,8 @@ export function InspectTopics(): ReactElement {
                 continue;
             }
         }
-        return roots;
-    }, [dataSelector])();
+        return currentRoots;
+    }, [dataSelector]);
 
     return (
         <>
@@ -59,7 +59,7 @@ export function InspectTopics(): ReactElement {
                             Broker: {dataSelector.brokers[i].broker}
                         </h3>
                         <div className={classes['chart']}>
-                            <ParentSize>
+                            <ParentSize className={classes['parent-size']}>
                                 {parent => (
                                     <TreeMap
                                         width={parent.width}

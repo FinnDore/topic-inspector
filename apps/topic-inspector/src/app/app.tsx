@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import classes from './app.module.scss';
@@ -18,7 +18,7 @@ export function App() {
         (state: RootState): ThemeMode => state.themeMode
     );
 
-    const theme = useCallback(
+    const theme = useMemo(
         () =>
             createTheme({
                 palette: {
@@ -32,7 +32,7 @@ export function App() {
                 }
             }),
         [themeMode]
-    )();
+    );
 
     return (
         <ThemeProvider theme={theme}>

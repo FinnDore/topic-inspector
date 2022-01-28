@@ -1,5 +1,5 @@
 import { Text } from '@visx/text';
-import { TreeData } from '../../../../_interfaces/tree-data.model';
+import { TreeData } from '../../../../../_interfaces/tree-data.model';
 import { memo } from 'react';
 
 const fit = 'shrink-only';

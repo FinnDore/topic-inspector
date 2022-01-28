@@ -3,9 +3,9 @@ import { Treemap, treemapSquarify } from '@visx/hierarchy';
 import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
-import { ReactElement, useCallback } from 'react';
+import { ReactElement, useMemo } from 'react';
 import { TreeData } from '../../../_interfaces/tree-data.model';
-import { TreeMapText } from './tree-map-text/tree-map';
+import { TreeLeaf } from './tree-leaf/tree-leaf';
 
 export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
@@ -54,23 +54,28 @@ export function TreeMap({
         hideTooltip
     } = useTooltip();
 
-    const handleMouseOver = (
-        event: React.PointerEvent<SVGRectElement>,
-        datum: TreeData
-    ): void => {
-        const containerX = event.clientX - containerBounds.left;
-        const containerY = event.clientY - containerBounds.top;
+    const handleMouseOver = useMemo(
+        () =>
+            (
+                event: React.PointerEvent<SVGRectElement>,
+                datum: TreeData
+            ): void => {
+                const containerX = event.clientX - containerBounds.left;
+                const containerY = event.clientY - containerBounds.top;
 
-        showTooltip({
-            tooltipLeft: containerX,
-            tooltipTop: containerY,
+                showTooltip({
+                    tooltipLeft: containerX,
+                    tooltipTop: containerY,
 
-            tooltipData:
-                `${datum?.topicName}  ${datum.topicSize} ` ?? 'Unknown size'
-        });
-    };
+                    tooltipData:
+                        `${datum?.topicName}  ${datum.topicSize} ` ??
+                        'Unknown size'
+                });
+            },
+        [showTooltip, containerBounds]
+    );
 
-    const colorScale = useCallback(() => {
+    const colorScale = useMemo(() => {
         const maxValue = Math.max(
             ...(data
                 .descendants()
@@ -80,18 +85,18 @@ export function TreeMap({
         );
 
         return scaleLinear<string>({
-            domain: [0, maxValue + maxValue * 0 ?? 0],
+            domain: [0, maxValue + maxValue * 0.1 ?? 0],
             range: [color2, color1]
         });
-    }, [data])();
+    }, [data]);
 
-    const xMaxYmax = useCallback(
+    const xMaxYmax = useMemo(
         (): [number, number] => [
             width - margin.left - margin.right,
             height - margin.top - margin.bottom
         ],
         [width, height, margin]
-    )();
+    );
 
     return (
         <>
@@ -113,46 +118,17 @@ export function TreeMap({
                             {treeMap
                                 .descendants()
                                 .reverse()
-                                .map(node => {
-                                    const nodeWidth = node.x1 - node.x0;
-                                    const nodeHeight = node.y1 - node.y0;
-                                    const data = node.data
-                                        .data as unknown as TreeData;
-
-                                    return (
-                                        <Group
-                                            key={data.id}
-                                            top={node.y0 + margin.top}
-                                            left={node.x0 + margin.left}
-                                        >
-                                            {node.depth > 0 && (
-                                                <>
-                                                    <rect
-                                                        width={nodeWidth}
-                                                        height={nodeHeight}
-                                                        stroke={background}
-                                                        onPointerMove={e =>
-                                                            handleMouseOver(
-                                                                e,
-                                                                data
-                                                            )
-                                                        }
-                                                        fill={colorScale(
-                                                            node.value ?? 0
-                                                        )}
-                                                    />
-                                                    <TreeMapText
-                                                        data={data}
-                                                        marginLeft={margin.left}
-                                                        marginTop={margin.top}
-                                                        nodeHeight={nodeHeight}
-                                                        nodeWidth={nodeWidth}
-                                                    ></TreeMapText>
-                                                </>
-                                            )}
-                                        </Group>
-                                    );
-                                })}
+                                .map(node => (
+                                    <TreeLeaf
+                                        key={node.data.id}
+                                        width={width}
+                                        height={height}
+                                        node={node}
+                                        margin={margin}
+                                        handleMouseOver={handleMouseOver}
+                                        colorScale={colorScale}
+                                    ></TreeLeaf>
+                                ))}
                         </Group>
                     )}
                 </Treemap>
