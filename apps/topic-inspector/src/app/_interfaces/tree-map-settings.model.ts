@@ -5,11 +5,5 @@ export interface TreeMapSettings {
     /**
      * {@property} the squarify functionName
      */
-    squarifyFunctionName:
-        | 'treemapSquarify'
-        | 'treemapBinary'
-        | 'treemapResquarify'
-        | 'treemapDice'
-        | 'treemapSlice'
-        | 'treemapSliceDice';
+    squarifyFunctionName: string;
 }

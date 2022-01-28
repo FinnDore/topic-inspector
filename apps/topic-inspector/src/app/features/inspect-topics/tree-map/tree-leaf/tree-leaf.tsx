@@ -20,6 +20,7 @@ export interface TreeLeafProps {
     /** Force re-render of memoised component when the dimensions changes */
     height: number;
     width: number;
+    fn: any;
 }
 
 /**

@@ -4,8 +4,12 @@ import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { SquarifyFunctions } from '../../../_constants/tree-map-squarify-functions';
 import { TreeData } from '../../../_interfaces/tree-data.model';
+import { RootState } from '../../../_store/store';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
+import { TreeMapSettings } from './tree-map-settings/tree-map-settings';
 import classes from './tree-map.module.scss';
 
 export const color1 = '#fc0f03';
@@ -43,6 +47,10 @@ export function TreeMap({
     title,
     margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
+    const activeSquarifyFunction = useSelector(
+        ({ treeMapSettings }: RootState) => treeMapSettings.squarifyFunctionName
+    );
+
     const { TooltipInPortal, containerBounds } = useTooltipInPortal({
         detectBounds: true,
         scroll: true
@@ -103,7 +111,10 @@ export function TreeMap({
 
     return (
         <>
-            <h3 className={classes['broker-name']}>{title}</h3>
+            <h3 className={classes['broker-name']}>
+                {title}
+                <TreeMapSettings></TreeMapSettings>
+            </h3>
             <svg
                 className={classes['tree-map']}
                 width={width}
@@ -119,7 +130,7 @@ export function TreeMap({
                         >
                     }
                     size={xMaxYmax}
-                    tile={treemapSquarify}
+                    tile={SquarifyFunctions[activeSquarifyFunction]}
                     round
                 >
                     {treeMap => (
@@ -131,6 +142,11 @@ export function TreeMap({
                                     <TreeLeaf
                                         key={node.data.id}
                                         width={width}
+                                        fn={
+                                            SquarifyFunctions[
+                                                activeSquarifyFunction
+                                            ]
+                                        }
                                         height={height}
                                         node={node}
                                         margin={margin}
