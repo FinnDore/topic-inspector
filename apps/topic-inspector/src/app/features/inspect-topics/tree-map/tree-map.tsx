@@ -72,7 +72,7 @@ export function TreeMap({
                         'Unknown size'
                 });
             },
-        [showTooltip]
+        [showTooltip, containerBounds]
     );
 
     const colorScale = useMemo(() => {
@@ -120,11 +120,12 @@ export function TreeMap({
                                 .reverse()
                                 .map(node => (
                                     <TreeLeaf
+                                        key={node.data.id}
+                                        width={width}
+                                        height={height}
                                         node={node}
                                         margin={margin}
-                                        handleMouseOver={(e, a) =>
-                                            handleMouseOver(e, a)
-                                        }
+                                        handleMouseOver={handleMouseOver}
                                         colorScale={colorScale}
                                     ></TreeLeaf>
                                 ))}

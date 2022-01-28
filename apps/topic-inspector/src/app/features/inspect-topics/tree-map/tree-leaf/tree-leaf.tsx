@@ -16,6 +16,10 @@ export interface TreeLeafProps {
     ) => void;
     margin: { top: number; left: number; right: number; bottom: number };
     colorScale: (value: number) => string;
+
+    /** Force re-render of memoised component when the dimensions changes */
+    height: number;
+    width: number;
 }
 
 /**
