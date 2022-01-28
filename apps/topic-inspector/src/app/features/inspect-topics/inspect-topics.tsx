@@ -55,13 +55,11 @@ export function InspectTopics(): ReactElement {
             {roots ? (
                 roots.map((root, i) => (
                     <div key={i}>
-                        <h3 className={classes['broker-name']}>
-                            Broker: {dataSelector.brokers[i].broker}
-                        </h3>
                         <div className={classes['chart']}>
                             <ParentSize className={classes['parent-size']}>
                                 {parent => (
                                     <TreeMap
+                                        title={`Broker: ${dataSelector.brokers[i].broker}`}
                                         width={parent.width}
                                         height={parent.height}
                                         data={root}

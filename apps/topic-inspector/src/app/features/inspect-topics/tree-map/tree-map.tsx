@@ -6,6 +6,7 @@ import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { ReactElement, useMemo } from 'react';
 import { TreeData } from '../../../_interfaces/tree-data.model';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
+import classes from './tree-map.module.scss';
 
 export const color1 = '#fc0f03';
 const color2 = '#5a03fc';
@@ -26,6 +27,7 @@ export type TreeMapProps = {
     height: number;
     data: HierarchyNode<HierarchyNode<TreeData>>;
     margin?: { top: number; right: number; bottom: number; left: number };
+    title: string;
 };
 
 /**
@@ -38,6 +40,7 @@ export function TreeMap({
     width,
     height,
     data,
+    title,
     margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
     const { TooltipInPortal, containerBounds } = useTooltipInPortal({
@@ -100,7 +103,13 @@ export function TreeMap({
 
     return (
         <>
-            <svg width={width} height={height} onMouseOut={hideTooltip}>
+            <h3 className={classes['broker-name']}>{title}</h3>
+            <svg
+                className={classes['tree-map']}
+                width={width}
+                height={height}
+                onMouseOut={hideTooltip}
+            >
                 <rect width={width} height={height} rx={5} fill={background} />
                 <Treemap<typeof data>
                     top={margin.top}

@@ -1,4 +1,5 @@
 import { ThemeMode } from '../_enums/theme-mode';
+import { TreeMapSettings } from '../_interfaces/tree-map-settings.model';
 
 /**
  * The sate for the global store
@@ -12,4 +13,8 @@ export interface State {
      *  {@property} The current theme mode
      */
     themeMode: ThemeMode;
+    /**
+     * {@property} the current tree map settings
+     */
+    treeMapSettings: TreeMapSettings;
 }

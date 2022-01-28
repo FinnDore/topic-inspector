@@ -10,4 +10,8 @@ export enum StoreAction {
      * Sets dark or light mode
      */
     SET_THEME_MODE = 'SET_THEME_MODE'
+    /**
+     * Patches the tree map settings
+     */
+    PATCH_TREE_MAP_SETTINGS = 'PATCH_TREE_MAP_SETTINGS'
 }
