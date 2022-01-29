@@ -6,7 +6,8 @@ import {
     MenuItem,
     Paper,
     Select,
-    SelectChangeEvent
+    SelectChangeEvent,
+    Tooltip
 } from '@mui/material';
 import { ReactElement, useMemo, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
@@ -87,26 +88,32 @@ export function TreeMapSettings(): ReactElement {
                     ))}
                 </Select>
             </FormControl>
-            {['Primary colour', 'Secondary colour'].map((val, i) => (
-                <div
-                    className={classes['select-color']}
-                    onClick={(e: unknown) =>
-                        handleClick(e as MouseEvent, i + 1)
-                    }
-                >
-                    <Paper
-                        className={classes['color-button']}
-                        elevation={16}
-                        sx={{
-                            background:
-                                i + 1 === 1 ? colors.color1 : colors.color2
-                        }}
-                    >
-                        <Button variant="text"></Button>
-                    </Paper>
-                    <p>{val}</p>
-                </div>
-            ))}
+            <h5 className={classes['graph-colors']}>Graph colors</h5>
+            <div className={classes['select-colors']}>
+                {['Primary colour', 'Secondary colour'].map((val, i) => (
+                    <Tooltip title="Click to change color">
+                        <div
+                            className={classes['select-color']}
+                            onClick={(e: unknown) =>
+                                handleClick(e as MouseEvent, i + 1)
+                            }
+                        >
+                            <Paper
+                                className={classes['color-button']}
+                                elevation={16}
+                                sx={{
+                                    background:
+                                        i + 1 === 1
+                                            ? colors.color1
+                                            : colors.color2
+                                }}
+                            >
+                                <Button variant="text"></Button>
+                            </Paper>
+                        </div>
+                    </Tooltip>
+                ))}
+            </div>
 
             <Menu
                 anchorEl={anchorEl as unknown as Element}
