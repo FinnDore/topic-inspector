@@ -1,7 +1,9 @@
-import { Button } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Button, IconButton, Menu } from '@mui/material';
 import { hierarchy, stratify } from '@visx/hierarchy';
 import { ParentSize } from '@visx/responsive';
-import { ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { MouseEventHandler, ReactElement, useMemo, useState } from 'react';
+import { ChromePicker } from 'react-color';
 import { useSelector } from 'react-redux';
 import TEST_DATA from '../../../static/kafka-log-dirs-output';
 import { KafkaLogDirs } from '../../_interfaces/kafka-log-dirs.model';
@@ -12,6 +14,7 @@ import { kafkaLogDirsToTree } from '../../_util/kafka-log-dirs-to-tree';
 import classes from './inspect-topics.module.scss';
 import { JsonInput } from './json-input/json-input';
 import { TreeMap } from './tree-map/tree-map';
+import { TreeMapSettings } from './tree-map/tree-map-settings/tree-map-settings';
 
 /**
  * Feature page for ingesting [kafka-log-dirs](https://docs.cloudera.com/runtime/7.2.1/kafka-managing/topics/kafka-manage-cli-logdir.html) and displaying the visualization for it
@@ -19,6 +22,8 @@ import { TreeMap } from './tree-map/tree-map';
  * @returns {object} the component
  */
 export function InspectTopics(): ReactElement {
+    const [settingsOpen, setSettingsOpen] = useState(false);
+
     const dataSelector: KafkaLogDirs = useSelector(
         ({ updateKafkaLogDirsReducer }: RootState) => updateKafkaLogDirsReducer
     );
@@ -46,8 +51,19 @@ export function InspectTopics(): ReactElement {
                 continue;
             }
         }
-        return currentRoots;
+        return [...currentRoots];
     }, [dataSelector]);
+
+    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick: MouseEventHandler<HTMLButtonElement> = event => {
+        console.log(event);
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <>
@@ -55,11 +71,28 @@ export function InspectTopics(): ReactElement {
             {roots ? (
                 roots.map((root, i) => (
                     <div key={i}>
+                        <h3 className={classes['broker-name']}>
+                            Broker: {dataSelector.brokers[i].broker}{' '}
+                            <IconButton onClick={handleClick}>
+                                <SettingsIcon></SettingsIcon>
+                            </IconButton>
+                            <Menu
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        padding: '1rem'
+                                    }
+                                }}
+                            >
+                                <TreeMapSettings></TreeMapSettings>
+                            </Menu>
+                        </h3>
                         <div className={classes['chart']}>
                             <ParentSize className={classes['parent-size']}>
                                 {parent => (
                                     <TreeMap
-                                        title={`Broker: ${dataSelector.brokers[i].broker}`}
                                         width={parent.width}
                                         height={parent.height}
                                         data={root}
