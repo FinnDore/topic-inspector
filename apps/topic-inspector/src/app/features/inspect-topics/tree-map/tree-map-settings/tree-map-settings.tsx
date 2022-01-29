@@ -68,6 +68,7 @@ export function TreeMapSettings(): ReactElement {
         setSelectedColor(index);
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -100,7 +101,7 @@ export function TreeMapSettings(): ReactElement {
                         >
                             <Paper
                                 className={classes['color-button']}
-                                elevation={16}
+                                elevation={3}
                                 sx={{
                                     background:
                                         i + 1 === 1

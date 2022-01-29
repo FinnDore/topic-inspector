@@ -80,6 +80,7 @@ export function InspectTopics(): ReactElement {
                                 anchorEl={anchorEl}
                                 open={open}
                                 onClose={handleClose}
+                                elevation={3}
                                 PaperProps={{
                                     style: {
                                         padding: '1rem'
