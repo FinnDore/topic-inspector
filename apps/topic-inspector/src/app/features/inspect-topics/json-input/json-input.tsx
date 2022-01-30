@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import { makeSyncTo } from '@topic-inspector/utils';
 import { ChangeEventHandler, useState } from 'react';
 import { setKafkaLogDirs } from '../../../_store/_actions/update-kafka-log-dirs.action';
+import { validateKafkaLogDirs } from '../../../_util/validate-kafka-log-dirs';
 import classes from './json-input.module.scss';
 
 const parse = makeSyncTo(JSON.parse);
@@ -12,17 +13,22 @@ const parse = makeSyncTo(JSON.parse);
  * @returns {object} the component
  */
 export function JsonInput(): JSX.Element {
-    const [invalidJson, setInvalidJson] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleInputChange: ChangeEventHandler<
         HTMLTextAreaElement | HTMLInputElement
     > = value => {
         const [newValue, error] = parse(value.target.value);
         if (error) {
-            return setInvalidJson(true);
+            return setErrorMessage('Invalid JSON');
         }
 
-        setInvalidJson(false);
+        const isValid = validateKafkaLogDirs(newValue);
+        if (!isValid) {
+            return setErrorMessage('Invalid Kafka Log Dirs');
+        }
+
+        setErrorMessage('');
         setKafkaLogDirs(newValue);
     };
 
@@ -34,8 +40,8 @@ export function JsonInput(): JSX.Element {
                 label="Kafka log dir output "
                 multiline
                 maxRows="5"
-                error={invalidJson}
-                helperText={invalidJson ? 'Invalid Json' : ''}
+                error={!!errorMessage}
+                helperText={errorMessage}
                 onChange={handleInputChange}
             />
         </div>
