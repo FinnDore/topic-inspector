@@ -58,9 +58,9 @@ export function InspectTopics(): ReactElement {
     const open = Boolean(anchorEl);
 
     const handleClick: MouseEventHandler<HTMLButtonElement> = event => {
-        console.log(event);
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
