@@ -26,15 +26,6 @@ export function Header() {
         <header className={classes['header']}>
             <h2>Topic Inspector</h2>
             <div className={classes['button-row']}>
-                <Link to="/">
-                    <Button>Inspect Topic</Button>
-                </Link>
-                <Link to="/help">
-                    <Button>Help</Button>
-                </Link>
-                <Link to="/about">
-                    <Button>About</Button>
-                </Link>
                 <IconButton
                     onClick={() =>
                         setThemeMode(

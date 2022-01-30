@@ -1,6 +1,6 @@
 .container {
     scroll-margin-top: 4rem;
-    width: 100vw;
+    width: calc(100vw - 4rem);
     min-height: 100vh;
     max-width: 1000px;
     margin: auto;
