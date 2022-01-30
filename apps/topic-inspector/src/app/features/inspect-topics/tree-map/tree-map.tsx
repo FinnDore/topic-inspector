@@ -42,9 +42,13 @@ export function TreeMap({
     data,
     margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
-    const color1 = useSelector(
-        ({ treeMapSettings }: RootState) => treeMapSettings.color1
+    const colors = useSelector(
+        ({ treeMapSettings: { color1, color2 } }: RootState) => ({
+            color1,
+            color2
+        })
     );
+
     const color2 = useSelector(
         ({ treeMapSettings }: RootState) => treeMapSettings.color2
     );
@@ -100,9 +104,9 @@ export function TreeMap({
 
         return scaleLinear<string>({
             domain: [0, maxValue + maxValue * 0.1 ?? 0],
-            range: [color2, color1]
+            range: [colors.color2, colors.color1]
         });
-    }, [data, color1, color2]);
+    }, [data, colors]);
 
     const xMaxYmax = useMemo(
         (): [number, number] => [

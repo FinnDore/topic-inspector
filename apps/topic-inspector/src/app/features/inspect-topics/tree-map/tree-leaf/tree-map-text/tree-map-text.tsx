@@ -16,7 +16,7 @@ export interface TreeMapTextProps {
 }
 
 /**
- * Text that goes on a individual topic on the tree map.
+ * Text that goes on a individual leaf on the tree map.
  */
 export const TreeMapText = memo(
     ({

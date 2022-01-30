@@ -48,6 +48,7 @@ export function TreeMapSettings(): ReactElement {
 
     const handleChange = useMemo(
         () => (value: ColorResult, colorNumber: number) => {
+            // ColorResult's hex value does not give an alpha value
             const color =
                 '#' +
                 rgbHex(value.rgb.r, value.rgb.g, value.rgb.b, value.rgb.a);
@@ -91,12 +92,12 @@ export function TreeMapSettings(): ReactElement {
             </FormControl>
             <h5 className={classes['graph-colors']}>Graph colors</h5>
             <div className={classes['select-colors']}>
-                {['Primary colour', 'Secondary colour'].map((val, i) => (
+                {[1, 2].map(val => (
                     <Tooltip title="Click to change color">
                         <div
                             className={classes['select-color']}
                             onClick={(e: unknown) =>
-                                handleClick(e as MouseEvent, i + 1)
+                                handleClick(e as MouseEvent, val)
                             }
                         >
                             <Paper
@@ -104,7 +105,7 @@ export function TreeMapSettings(): ReactElement {
                                 elevation={3}
                                 sx={{
                                     background:
-                                        i + 1 === 1
+                                        val === 1
                                             ? colors.color1
                                             : colors.color2
                                 }}
