@@ -10,7 +10,6 @@ export type patchTreeMapSettingsReducerPayload = PayloadAction<
 const DEFAULT_STATE: TreeMapSettings = {
     squarifyFunctionName: 'treemapSquarify',
     color1: '#fc0f03',
-
     color2: '#5a03fc'
 };
 

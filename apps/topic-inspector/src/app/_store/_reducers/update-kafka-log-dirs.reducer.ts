@@ -1,15 +1,18 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { StoreAction } from '../../_enums/store-action';
 import TEST_DATA from '../../../static/kafka-log-dirs-output';
+import { environment } from '../../../environments/environment';
 
 export type setKafkaLogDirsReducerPayload = PayloadAction<object>;
 
 /**
  * The default state
  */
-export const DEFAULT_STATE = {
-    ...TEST_DATA
-};
+export const DEFAULT_STATE = environment.production
+    ? null
+    : {
+          ...TEST_DATA
+      };
 
 /**
  * Sets the value of  kafkaLogDirs in the store

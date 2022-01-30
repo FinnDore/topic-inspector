@@ -19,6 +19,11 @@
 .no-data {
     display: flex;
     justify-content: center;
+
+    & > *,
+    button {
+        margin: auto 0.5rem;
+    }
 }
 
 .parent-size {
