@@ -1,7 +1,7 @@
-[![CODESTYLE](.github\badges\code-style-prettier.svg)](https://prettier.io/)
-[![LICENCE](.github\badges\licence-mit.svg)](https://github.com/FinnDore/topic-inspector/blob/main/LICENSE)
-[![STATUS](.github\badges\status-pre-alpha.svg)](https://github.com/FinnDore/topic-inspector)
-[![SUPPORTS](.github\badges\supports-win-_-linux-_-mac.svg)](https://github.com/FinnDore/topic-inspector)
+[![CODESTYLE](https://raw.githubusercontent.com/FinnDore/topic-inspector/main/.github/badges/code-style-prettier.svg)](https://prettier.io/)
+[![LICENCE](https://raw.githubusercontent.com/FinnDore/topic-inspector/main/.github\badges\licence-mit.svg)](https://github.com/FinnDore/topic-inspector/blob/main/LICENSE)
+[![STATUS](https://raw.githubusercontent.com/FinnDore/topic-inspector/main/.github\badges\status-pre-alpha.svg)](https://github.com/FinnDore/topic-inspector)
+[![SUPPORTS](https://raw.githubusercontent.com/FinnDore/topic-inspector/main/.github\badges\supports-win-_-linux-_-mac.svg)](https://github.com/FinnDore/topic-inspector)
 
 # TopicInspector
 
