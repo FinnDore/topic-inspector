@@ -4,8 +4,8 @@ const partitionSchema: Schema = {
     id: '/partition',
     type: 'object',
     properties: {
-        partition: { type: 'string' },
-        size: { type: 'number' }
+        partition: { required: true, type: 'string' },
+        size: { required: true, type: 'number' }
     }
 };
 
@@ -13,24 +13,28 @@ const logDirSchema: Schema = {
     id: '/logdir',
     type: 'object',
     properties: {
-        partitions: { type: 'array', items: { $ref: '/partition' } }
+        partitions: {
+            required: true,
+            type: 'array',
+            items: { $ref: '/partition' }
+        }
     }
 };
 
-const brokerSchema = {
+const brokerSchema: Schema = {
     id: '/broker',
     type: 'object',
     properties: {
-        logDirs: { type: 'array', items: { $ref: '/logdir' } },
-        broker: { type: 'number' }
+        logDirs: { required: true, type: 'array', items: { $ref: '/logdir' } },
+        broker: { required: true, type: 'number' }
     }
 };
 
-const KafkaLogDirsSchema = {
+const KafkaLogDirsSchema: Schema = {
     id: '/KafkaLogDirs',
     type: 'object',
     properties: {
-        brokers: { type: 'array', items: { $ref: '/broker' } }
+        brokers: { required: true, type: 'array', items: { $ref: '/broker' } }
     }
 };
 
