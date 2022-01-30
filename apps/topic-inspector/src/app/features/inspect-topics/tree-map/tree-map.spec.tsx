@@ -20,7 +20,12 @@ describe('TreeMap', () => {
             (a, b) => (b.value || 0) - (a.value || 0)
         );
 
-        const props = { width: 10, height: 10, data: dataToUse };
+        const props = {
+            width: 10,
+            height: 10,
+            data: dataToUse,
+            title: 'broker 1'
+        };
         const { baseElement } = render(
             <Provider store={GlobalStore}>
                 <TreeMap {...props} />

@@ -1,14 +1,16 @@
 import { Group } from '@visx/group';
-import { Treemap, treemapSquarify } from '@visx/hierarchy';
+import { Treemap } from '@visx/hierarchy';
 import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
 import { ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { SquarifyFunctions } from '../../../_constants/tree-map-squarify-functions';
 import { TreeData } from '../../../_interfaces/tree-data.model';
+import { RootState } from '../../../_store/store';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
+import classes from './tree-map.module.scss';
 
-export const color1 = '#fc0f03';
-const color2 = '#5a03fc';
 export const background = 'black';
 
 const tooltipStyles: React.CSSProperties = {
@@ -40,6 +42,22 @@ export function TreeMap({
     data,
     margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
+    const colors = useSelector(
+        ({ treeMapSettings: { color1, color2 } }: RootState) => ({
+            color1,
+            color2
+        })
+    );
+
+    const color2 = useSelector(
+        ({ treeMapSettings }: RootState) => treeMapSettings.color2
+    );
+
+    const activeSquarifyFunction = useSelector(
+        ({ treeMapSettings }: RootState) =>
+            SquarifyFunctions[treeMapSettings.squarifyFunctionName]
+    );
+
     const { TooltipInPortal, containerBounds } = useTooltipInPortal({
         detectBounds: true,
         scroll: true
@@ -86,9 +104,9 @@ export function TreeMap({
 
         return scaleLinear<string>({
             domain: [0, maxValue + maxValue * 0.1 ?? 0],
-            range: [color2, color1]
+            range: [colors.color2, colors.color1]
         });
-    }, [data]);
+    }, [data, colors]);
 
     const xMaxYmax = useMemo(
         (): [number, number] => [
@@ -100,7 +118,12 @@ export function TreeMap({
 
     return (
         <>
-            <svg width={width} height={height} onMouseOut={hideTooltip}>
+            <svg
+                className={classes['tree-map']}
+                width={width}
+                height={height}
+                onMouseOut={hideTooltip}
+            >
                 <rect width={width} height={height} rx={5} fill={background} />
                 <Treemap<typeof data>
                     top={margin.top}
@@ -110,7 +133,7 @@ export function TreeMap({
                         >
                     }
                     size={xMaxYmax}
-                    tile={treemapSquarify}
+                    tile={activeSquarifyFunction}
                     round
                 >
                     {treeMap => (
@@ -122,6 +145,7 @@ export function TreeMap({
                                     <TreeLeaf
                                         key={node.data.id}
                                         width={width}
+                                        fn={activeSquarifyFunction}
                                         height={height}
                                         node={node}
                                         margin={margin}

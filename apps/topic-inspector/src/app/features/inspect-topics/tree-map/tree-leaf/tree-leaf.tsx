@@ -1,7 +1,8 @@
 import { Group } from '@visx/group';
 import {
     HierarchyNode,
-    HierarchyRectangularNode
+    HierarchyRectangularNode,
+    TileMethod
 } from '@visx/hierarchy/lib/types';
 import { memo } from 'react';
 import { TreeData } from '../../../../_interfaces/tree-data.model';
@@ -20,6 +21,7 @@ export interface TreeLeafProps {
     /** Force re-render of memoised component when the dimensions changes */
     height: number;
     width: number;
+    fn: TileMethod<HierarchyNode<HierarchyNode<unknown>>>;
 }
 
 /**
