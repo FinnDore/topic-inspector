@@ -16,6 +16,7 @@ import rgbHex from 'rgb-hex';
 import { SquarifyFunctions } from '../../../../_constants/tree-map-squarify-functions';
 import { RootState } from '../../../../_store/store';
 import { patchTreeMapSettings } from '../../../../_store/_actions/patch-tree-map-settings.action';
+import { colorSelector } from '../../../../_store/_selectors/color.selector';
 import classes from './tree-map-settings.module.scss';
 
 /**
@@ -29,12 +30,7 @@ export function TreeMapSettings(): ReactElement {
         ({ treeMapSettings }: RootState) => treeMapSettings.squarifyFunctionName
     );
 
-    const colors = useSelector(
-        ({ treeMapSettings: { color1, color2 } }: RootState) => ({
-            color1,
-            color2
-        })
-    );
+    const colors = useSelector(colorSelector);
 
     const handleInput = useMemo(
         () => (selectionEvent: SelectChangeEvent<string>) =>

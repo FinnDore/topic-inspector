@@ -22,8 +22,6 @@ import { TreeMapSettings } from './tree-map/tree-map-settings/tree-map-settings'
  * @returns {object} the component
  */
 export function InspectTopics(): ReactElement {
-    const [settingsOpen, setSettingsOpen] = useState(false);
-
     const dataSelector: KafkaLogDirs = useSelector(
         ({ updateKafkaLogDirsReducer }: RootState) => updateKafkaLogDirsReducer
     );
