@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { SquarifyFunctions } from '../../../_constants/tree-map-squarify-functions';
 import { TreeData } from '../../../_interfaces/tree-data.model';
 import { RootState } from '../../../_store/store';
+import { colorSelector } from '../../../_store/_selectors/color.selector';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
 import classes from './tree-map.module.scss';
 
@@ -42,16 +43,7 @@ export function TreeMap({
     data,
     margin = DEFAULT_MARGIN
 }: TreeMapProps): ReactElement | null {
-    const colors = useSelector(
-        ({ treeMapSettings: { color1, color2 } }: RootState) => ({
-            color1,
-            color2
-        })
-    );
-
-    const color2 = useSelector(
-        ({ treeMapSettings }: RootState) => treeMapSettings.color2
-    );
+    const colors = useSelector(colorSelector);
 
     const activeSquarifyFunction = useSelector(
         ({ treeMapSettings }: RootState) =>
