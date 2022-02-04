@@ -5,7 +5,7 @@
 
 # TopicInspector
 
-A lightweight tool for inspecting topic sizes for all your Kafka brokers.
+A lightweight tool for inspecting topic sizes for all your Kafka brokers. [demo](https://topic-inspector.vercel.app/)
 
 ### Upcoming features:
 
@@ -13,4 +13,3 @@ A lightweight tool for inspecting topic sizes for all your Kafka brokers.
 -   Topic grouping. Group topics with similar names together. Useful when using frameworks like spring that partition your topics automatically.
 -   Automatic data gathering. Let Topic Inspector run kafka-log-dirs to automatically update the chart in real-time as well as gather historic data to be viewed later.
 -   Persistent storage of app settings.
--   Hosted version.
