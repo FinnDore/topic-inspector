@@ -1,0 +1,12 @@
+.relative {
+    position: relative;
+}
+
+.mini-map {
+    position: absolute;
+    bottom: 25px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

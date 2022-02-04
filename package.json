@@ -23,6 +23,7 @@
         "@visx/scale": "^2.2.2",
         "@visx/text": "^2.3.0",
         "@visx/tooltip": "^2.2.2",
+        "@visx/zoom": "^2.6.1",
         "core-js": "^3.6.5",
         "jsonschema": "^1.4.0",
         "lodash": "^4.17.21",

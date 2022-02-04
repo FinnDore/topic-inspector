@@ -3,6 +3,8 @@ import { Treemap } from '@visx/hierarchy';
 import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
+import { applyMatrixToPoint, createMatrix, Zoom } from '@visx/zoom';
+import { TransformMatrix } from '@visx/zoom/lib/types';
 import { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { SquarifyFunctions } from '../../../_constants/tree-map-squarify-functions';
@@ -10,8 +12,6 @@ import { TreeData } from '../../../_interfaces/tree-data.model';
 import { RootState } from '../../../_store/store';
 import { colorSelector } from '../../../_store/_selectors/color.selector';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
-import classes from './tree-map.module.scss';
-
 export const background = 'black';
 
 const tooltipStyles: React.CSSProperties = {
@@ -29,6 +29,15 @@ export type TreeMapProps = {
     height: number;
     data: HierarchyNode<HierarchyNode<TreeData>>;
     margin?: { top: number; right: number; bottom: number; left: number };
+};
+
+const initialTransform = {
+    scaleX: 1,
+    scaleY: 1,
+    translateX: 0,
+    translateY: 0,
+    skewX: 0,
+    skewY: 0
 };
 
 /**
@@ -108,60 +117,103 @@ export function TreeMap({
         [width, height, margin]
     );
 
+    const constrain = useMemo(
+        () =>
+            (
+                transformMatrix: TransformMatrix,
+                prevTransformMatrix: TransformMatrix
+            ) => {
+                const min = applyMatrixToPoint(transformMatrix, { x: 1, y: 1 });
+                const max = applyMatrixToPoint(transformMatrix, {
+                    x: width,
+                    y: height
+                });
+
+                console.log(transformMatrix);
+                if (max.x < width || max.y < height) {
+                    return prevTransformMatrix;
+                }
+                if (min.x > 0 || min.y > 0) {
+                    return createMatrix(initialTransform);
+                }
+
+                return transformMatrix;
+            },
+        [width, height]
+    );
+
     return (
-        <>
-            <svg
-                className={classes['tree-map']}
+        <div style={{ background }}>
+            <Zoom<SVGSVGElement>
                 width={width}
                 height={height}
-                onMouseOut={hideTooltip}
+                initialTransformMatrix={initialTransform}
+                constrain={constrain}
             >
-                <rect width={width} height={height} rx={5} fill={background} />
-                <Treemap<typeof data>
-                    top={margin.top}
-                    root={
-                        data as unknown as HierarchyNode<
-                            HierarchyNode<HierarchyNode<TreeData>>
+                {zoom => (
+                    <div className="relative">
+                        <svg
+                            width={width}
+                            height={height}
+                            onMouseOut={hideTooltip}
+                            ref={zoom.containerRef}
                         >
-                    }
-                    size={xMaxYmax}
-                    tile={activeSquarifyFunction}
-                    round
-                >
-                    {treeMap => (
-                        <Group>
-                            {treeMap
-                                .descendants()
-                                .reverse()
-                                .map(node => (
-                                    <TreeLeaf
-                                        key={node.data.id}
-                                        width={width}
-                                        fn={activeSquarifyFunction}
-                                        height={height}
-                                        node={node}
-                                        margin={margin}
-                                        handleMouseOver={handleMouseOver}
-                                        colorScale={colorScale}
-                                    ></TreeLeaf>
-                                ))}
-                        </Group>
-                    )}
-                </Treemap>
-            </svg>
-
-            {tooltipOpen && (
-                <TooltipInPortal
-                    // set this to random so it correctly updates with parent bounds
-                    key={Math.random()}
-                    top={tooltipTop}
-                    left={tooltipLeft}
-                    style={tooltipStyles}
-                >
-                    <strong>{tooltipData}</strong>
-                </TooltipInPortal>
-            )}
-        </>
+                            <g transform={zoom.toString()}>
+                                <rect width={width} height={height} rx={5} />
+                                <Treemap<typeof data>
+                                    top={margin.top}
+                                    root={
+                                        data as unknown as HierarchyNode<
+                                            HierarchyNode<
+                                                HierarchyNode<TreeData>
+                                            >
+                                        >
+                                    }
+                                    size={xMaxYmax}
+                                    tile={activeSquarifyFunction}
+                                    round
+                                >
+                                    {treeMap => (
+                                        <Group>
+                                            {treeMap
+                                                .descendants()
+                                                .reverse()
+                                                .map(node => (
+                                                    <TreeLeaf
+                                                        key={node.data.id}
+                                                        width={width}
+                                                        fn={
+                                                            activeSquarifyFunction
+                                                        }
+                                                        height={height}
+                                                        node={node}
+                                                        margin={margin}
+                                                        handleMouseOver={
+                                                            handleMouseOver
+                                                        }
+                                                        colorScale={colorScale}
+                                                    ></TreeLeaf>
+                                                ))}
+                                        </Group>
+                                    )}
+                                </Treemap>
+                            </g>
+                        </svg>
+                        {tooltipOpen && (
+                            <TooltipInPortal
+                                // set this to random so it correctly updates with parent bounds
+                                key={Math.random()}
+                                top={tooltipTop}
+                                left={tooltipLeft}
+                                style={tooltipStyles}
+                            >
+                                <strong>{tooltipData}</strong>
+                            </TooltipInPortal>
+                        )}
+                    </div>
+                )}
+            </Zoom>
+        </div>
     );
 }
 
