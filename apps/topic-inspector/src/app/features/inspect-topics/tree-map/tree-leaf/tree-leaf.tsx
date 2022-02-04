@@ -8,7 +8,6 @@ import { memo } from 'react';
 import { TreeData } from '../../../../_interfaces/tree-data.model';
 import { background } from '../tree-map';
 import { TreeMapText } from './tree-map-text/tree-map-text';
-
 export interface TreeLeafProps {
     node: HierarchyRectangularNode<HierarchyNode<HierarchyNode<TreeData>>>;
     handleMouseOver: (

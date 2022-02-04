@@ -12,6 +12,8 @@ import { TreeData } from '../../../_interfaces/tree-data.model';
 import { RootState } from '../../../_store/store';
 import { colorSelector } from '../../../_store/_selectors/color.selector';
 import { TreeLeaf } from './tree-leaf/tree-leaf';
+import classes from './tree-map.module.scss';
+
 export const background = 'black';
 
 const tooltipStyles: React.CSSProperties = {
@@ -167,7 +169,7 @@ export function TreeMap({
                 constrain={constrain}
             >
                 {zoom => (
-                    <div className="relative">
+                    <div className={classes['relative']}>
                         <svg
                             width={width}
                             height={height}
