@@ -3,7 +3,7 @@ import { Treemap } from '@visx/hierarchy';
 import { HierarchyNode } from '@visx/hierarchy/lib/types';
 import { scaleLinear } from '@visx/scale';
 import { defaultStyles, useTooltip, useTooltipInPortal } from '@visx/tooltip';
-import { applyMatrixToPoint, createMatrix, Zoom } from '@visx/zoom';
+import { applyMatrixToPoint, Zoom } from '@visx/zoom';
 import { TransformMatrix } from '@visx/zoom/lib/types';
 import { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -117,28 +117,44 @@ export function TreeMap({
         [width, height, margin]
     );
 
+    /**
+     * Constrain the zoom bounds so the user cannot pan outside the tree map
+     */
     const constrain = useMemo(
-        () =>
-            (
-                transformMatrix: TransformMatrix,
-                prevTransformMatrix: TransformMatrix
-            ) => {
-                const min = applyMatrixToPoint(transformMatrix, { x: 1, y: 1 });
-                const max = applyMatrixToPoint(transformMatrix, {
-                    x: width,
-                    y: height
-                });
+        () => (transformMatrix: TransformMatrix) => {
+            const { scaleX, scaleY, translateX, translateY } = transformMatrix;
+            // Fix constrain scale
+            if (scaleX < 1) {
+                transformMatrix.scaleX = 1;
+            }
+            if (scaleY < 1) {
+                transformMatrix.scaleY = 1;
+            }
 
-                console.log(transformMatrix);
-                if (max.x < width || max.y < height) {
-                    return prevTransformMatrix;
-                }
-                if (min.x > 0 || min.y > 0) {
-                    return createMatrix(initialTransform);
-                }
+            // Fix constrain translate [left, top] position
+            if (translateX > 0) {
+                transformMatrix.translateX = 0;
+            }
+            if (translateY > 0) {
+                transformMatrix.translateY = 0;
+            }
+            // Fix constrain translate [right, bottom] position
+            const max = applyMatrixToPoint(transformMatrix, {
+                x: width,
+                y: height
+            });
+            if (max.x < width) {
+                transformMatrix.translateX =
+                    translateX + Math.abs(max.x - width);
+            }
+            if (max.y < height) {
+                transformMatrix.translateY =
+                    translateY + Math.abs(max.y - height);
+            }
 
-                return transformMatrix;
-            },
+            // Return the matrix
+            return transformMatrix;
+        },
         [width, height]
     );
 
