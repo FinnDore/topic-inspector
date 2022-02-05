@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.4...v0.2.0) (2022-02-05)
+
+
+### Bug Fixes
+
+* conflicitng workflow names ([df1264c](https://github.com/FinnDore/topic-inspector/commit/df1264c15b7a0fdcf05bbc1d795cfc4072483043))
+* removed kababCase workflow name ([8e1fbd4](https://github.com/FinnDore/topic-inspector/commit/8e1fbd4d4b6b5887858db49188ea7269a1b65c6d))
+* removed whitespace ([6004971](https://github.com/FinnDore/topic-inspector/commit/60049712f9add35a2f41972f39cbe02a105e858d))
+* trigger CI ([79cbc5f](https://github.com/FinnDore/topic-inspector/commit/79cbc5ffc993ced63423bd850704d90b1a11519c))
+* updated main CI workflow ([1fc0093](https://github.com/FinnDore/topic-inspector/commit/1fc0093d3ecde190a80a7ba4a89763a2845fe1a4))
+* updated push branches to * ([68103c6](https://github.com/FinnDore/topic-inspector/commit/68103c6664266f5f4254ef96eccac7165d373f70))
+
+
+### Features
+
+* added build release workflow ([ee7413e](https://github.com/FinnDore/topic-inspector/commit/ee7413eda4663edf42945d231b99808a83951cf5))
+
+
+
 ## [0.1.4](https://github.com/FinnDore/topic-inspector/compare/v0.1.3...v0.1.4) (2022-02-05)
 
 
