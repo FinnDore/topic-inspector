@@ -14,7 +14,7 @@
                         "syncVersions": true,
                         "commitMessageFormat": "chore(${projectName}): release version ${version}",
                         "baseBranch": "main",
-                        "postTargets": ["github"]
+                        "postTargets": ["workspace:github"]
                     }
                 },
                 "github": {
