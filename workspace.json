@@ -12,13 +12,15 @@
                     "executor": "@jscutlery/semver:version",
                     "options": {
                         "syncVersions": true,
-                        "commitMessageFormat": "chore(${projectName}): release version ${version}"
+                        "commitMessageFormat": "chore(${projectName}): release version ${version}",
+                        "baseBranch": "main",
+                        "postTargets": ["github"]
                     }
                 },
                 "github": {
                     "executor": "@jscutlery/semver:github",
                     "options": {
-                        "tag": "Pre-release",
+                        "tag": "${version}",
                         "generateNotes": true
                     }
                 }
