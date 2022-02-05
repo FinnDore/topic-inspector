@@ -21,6 +21,7 @@
                     "executor": "@jscutlery/semver:github",
                     "options": {
                         "tag": "${version}",
+                        "title": "Release ${version}",
                         "generateNotes": true
                     }
                 }
