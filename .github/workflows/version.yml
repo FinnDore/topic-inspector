@@ -17,6 +17,6 @@ jobs:
                   git config user.name "${GITHUB_ACTOR}"
                   git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
             - run: npm ci
-            - run: npx nx version workspace --push --baseBranch  10-add-versioning
+            - run: npx nx version workspace --push --baseBranch 10-add-versioning
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
