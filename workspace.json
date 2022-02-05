@@ -18,7 +18,7 @@
                 "github": {
                     "executor": "@jscutlery/semver:github",
                     "options": {
-                        "tag": "${tag}",
+                        "tag": "Pre-release",
                         "generateNotes": true
                     }
                 }
