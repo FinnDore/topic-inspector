@@ -17,6 +17,6 @@ jobs:
                   git config user.name "${GITHUB_ACTOR}"
                   git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
             - run: npm ci
-            - run: npx nx version my-project --push --baseBranch master
+            - run: npx nx version topic-inspector --push --baseBranch main
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
