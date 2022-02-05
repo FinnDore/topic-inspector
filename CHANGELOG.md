@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.4](https://github.com/FinnDore/topic-inspector/compare/v0.1.3...v0.1.4) (2022-02-05)
+
+
+### Bug Fixes
+
+* prefixed github with workspace ([186c18b](https://github.com/FinnDore/topic-inspector/commit/186c18b67ebb70f878a7fdf1008bd747d51c23e2))
+
+
+
 ## [0.1.3](https://github.com/FinnDore/topic-inspector/compare/v0.1.2...v0.1.3) (2022-02-05)
 
 
