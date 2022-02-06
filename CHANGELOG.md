@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.3.2](https://github.com/FinnDore/topic-inspector/compare/v0.3.1...v0.3.2) (2022-02-06)
+
+
+### Bug Fixes
+
+* updated version to use PAT ([6da92d3](https://github.com/FinnDore/topic-inspector/commit/6da92d3a36fdea7f71b1664264d968e07fa8cdf0))
+
+
+
 ## [0.3.1](https://github.com/FinnDore/topic-inspector/compare/v0.3.0...v0.3.1) (2022-02-06)
 
 
