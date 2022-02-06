@@ -1,9 +1,5 @@
 name: CI
-on:
-  push:
-    branches:
-      - "10-add-versioning"
-  pull_request:
+on: [push, pull_request]
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
