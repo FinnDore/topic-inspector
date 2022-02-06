@@ -2,6 +2,34 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.2](https://github.com/FinnDore/topic-inspector/compare/v0.2.1...v0.2.2) (2022-02-06)
+
+
+### Bug Fixes
+
+* added dist path input ([7dc7222](https://github.com/FinnDore/topic-inspector/commit/7dc72220eeb39860ef84be51fed16bcf4f36c295))
+* removed trailing quotes ([3157910](https://github.com/FinnDore/topic-inspector/commit/3157910d60a787097b21528e06f016b0fa8be4aa))
+
+
+
+## [0.2.1](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.2.1) (2022-02-06)
+
+
+### Bug Fixes
+
+* updated the config path ([90553a1](https://github.com/FinnDore/topic-inspector/commit/90553a174acc1174a657a98e62805b0eb3356724))
+
+
+
+# [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.0...v0.2.0) (2022-02-06)
+
+
+### Features
+
+* added config and dist path inputs ([0f7ebdd](https://github.com/FinnDore/topic-inspector/commit/0f7ebdd47ca3c0f94eacd669fab087af279627e4))
+
+
+
 # 0.1.0 (2022-02-06)
 
 
