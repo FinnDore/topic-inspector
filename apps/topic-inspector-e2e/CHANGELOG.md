@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.3.1](https://github.com/FinnDore/topic-inspector/compare/v0.3.0...v0.3.1) (2022-02-06)
+
+
+
 # [0.3.0](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.3.0) (2022-02-06)
 
 
