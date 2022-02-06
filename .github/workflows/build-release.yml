@@ -36,5 +36,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ github.event.release.id }}
-          configPath: apps\tauri-client\src-tauri\tauri.conf.json
-          distPath: dist\apps\topic-inspector
+          configPath: /apps/tauri-client/src-tauri/tauri.conf.json
+          distPath: /dist/apps/topic-inspector
