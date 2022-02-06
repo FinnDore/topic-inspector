@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.3.0](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.3.0) (2022-02-06)
+
+
+### Bug Fixes
+
+* trigger CI ([07b1ac4](https://github.com/FinnDore/topic-inspector/commit/07b1ac40e9da6a995245fdffb977800e6ebccc4d))
+* trigger CI again ([3a2a55a](https://github.com/FinnDore/topic-inspector/commit/3a2a55a053bea239bf881485bf2d987846a3fcb2))
+* updated indentation ([7826695](https://github.com/FinnDore/topic-inspector/commit/78266955b41f1d7b2d8d3446e318ba54c5c7ea3b))
+
+
+### Features
+
+* changed selector color ([a21955e](https://github.com/FinnDore/topic-inspector/commit/a21955e607d1179d16a1dc43e95879502258a903))
+* updated ci branches ([d705808](https://github.com/FinnDore/topic-inspector/commit/d705808cf1f839e3b83e57a7c05d57101f0ce9ba))
+
+
+
 # [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.4...v0.2.0) (2022-02-05)
 
 
