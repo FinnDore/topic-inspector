@@ -2,6 +2,60 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.3.2](https://github.com/FinnDore/topic-inspector/compare/v0.3.1...v0.3.2) (2022-02-06)
+
+
+### Bug Fixes
+
+* updated version to use PAT ([6da92d3](https://github.com/FinnDore/topic-inspector/commit/6da92d3a36fdea7f71b1664264d968e07fa8cdf0))
+
+
+
+## [0.3.1](https://github.com/FinnDore/topic-inspector/compare/v0.3.0...v0.3.1) (2022-02-06)
+
+
+### Bug Fixes
+
+* changed the build comand to build topic-inspector explicitly ([e523d8b](https://github.com/FinnDore/topic-inspector/commit/e523d8bfce4c815b8ff02c6a14d969f7131a971a))
+
+
+
+# [0.3.0](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.3.0) (2022-02-06)
+
+
+### Bug Fixes
+
+* added more types to the releae workflow ([da70d5a](https://github.com/FinnDore/topic-inspector/commit/da70d5abd8883fb5fc7a6544c0c6762b58bce7a0))
+* bump version ([99f72e3](https://github.com/FinnDore/topic-inspector/commit/99f72e34b1bd970c0b3c5ab4c25b62b9a6110f88))
+* trigger CI ([07b1ac4](https://github.com/FinnDore/topic-inspector/commit/07b1ac40e9da6a995245fdffb977800e6ebccc4d))
+* trigger CI again ([3a2a55a](https://github.com/FinnDore/topic-inspector/commit/3a2a55a053bea239bf881485bf2d987846a3fcb2))
+* updated indentation ([7826695](https://github.com/FinnDore/topic-inspector/commit/78266955b41f1d7b2d8d3446e318ba54c5c7ea3b))
+
+
+### Features
+
+* changed selector color ([a21955e](https://github.com/FinnDore/topic-inspector/commit/a21955e607d1179d16a1dc43e95879502258a903))
+* updated ci branches ([d705808](https://github.com/FinnDore/topic-inspector/commit/d705808cf1f839e3b83e57a7c05d57101f0ce9ba))
+
+
+
+# [0.3.0](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.3.0) (2022-02-06)
+
+
+### Bug Fixes
+
+* trigger CI ([07b1ac4](https://github.com/FinnDore/topic-inspector/commit/07b1ac40e9da6a995245fdffb977800e6ebccc4d))
+* trigger CI again ([3a2a55a](https://github.com/FinnDore/topic-inspector/commit/3a2a55a053bea239bf881485bf2d987846a3fcb2))
+* updated indentation ([7826695](https://github.com/FinnDore/topic-inspector/commit/78266955b41f1d7b2d8d3446e318ba54c5c7ea3b))
+
+
+### Features
+
+* changed selector color ([a21955e](https://github.com/FinnDore/topic-inspector/commit/a21955e607d1179d16a1dc43e95879502258a903))
+* updated ci branches ([d705808](https://github.com/FinnDore/topic-inspector/commit/d705808cf1f839e3b83e57a7c05d57101f0ce9ba))
+
+
+
 # [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.4...v0.2.0) (2022-02-05)
 
 

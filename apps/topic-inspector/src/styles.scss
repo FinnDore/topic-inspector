@@ -15,3 +15,7 @@ body {
     width: calc(100vw - 4rem);
     padding: 0 2rem;
 }
+
+::selection {
+    background: #6504eb;
+}

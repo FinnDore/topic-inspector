@@ -3,7 +3,7 @@ name: Version
 on:
   push:
     branches:
-      - "10-add-versioning"
+      - "main"
 
 jobs:
   release:
@@ -17,6 +17,6 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - run: npm ci
-      - run: npx nx version workspace --push --baseBranch 10-add-versioning
+      - run: npx nx version workspace --push --baseBranch main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
