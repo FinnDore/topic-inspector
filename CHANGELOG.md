@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.0...v0.2.0) (2022-02-06)
+
+
+### Features
+
+* added config and dist path inputs ([0f7ebdd](https://github.com/FinnDore/topic-inspector/commit/0f7ebdd47ca3c0f94eacd669fab087af279627e4))
+
+
+
 # 0.1.0 (2022-02-06)
 
 
