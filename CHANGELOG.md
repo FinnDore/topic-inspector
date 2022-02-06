@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.1](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.2.1) (2022-02-06)
+
+
+### Bug Fixes
+
+* updated the config path ([90553a1](https://github.com/FinnDore/topic-inspector/commit/90553a174acc1174a657a98e62805b0eb3356724))
+
+
+
 # [0.2.0](https://github.com/FinnDore/topic-inspector/compare/v0.1.0...v0.2.0) (2022-02-06)
 
 
