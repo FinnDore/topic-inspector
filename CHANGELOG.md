@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.2](https://github.com/FinnDore/topic-inspector/compare/v0.2.1...v0.2.2) (2022-02-06)
+
+
+### Bug Fixes
+
+* added dist path input ([7dc7222](https://github.com/FinnDore/topic-inspector/commit/7dc72220eeb39860ef84be51fed16bcf4f36c295))
+* removed trailing quotes ([3157910](https://github.com/FinnDore/topic-inspector/commit/3157910d60a787097b21528e06f016b0fa8be4aa))
+
+
+
 ## [0.2.1](https://github.com/FinnDore/topic-inspector/compare/v0.2.0...v0.2.1) (2022-02-06)
 
 
