@@ -40,4 +40,4 @@ jobs:
           releaseId: ${{ github.event.release.id }}
           projectPath: apps/tauri-client
           configPath: apps/tauri-client/src-tauri/tauri.conf.json
-          distPath: dist/topic-inspector
+          distPath: dist/apps/topic-inspector
