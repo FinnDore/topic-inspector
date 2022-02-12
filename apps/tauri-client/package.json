@@ -5,5 +5,8 @@
         "tauri": "tauri"
     },
     "author": "",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "@tauri-apps/cli": "^1.0.0-rc.2"
+    }
 }
