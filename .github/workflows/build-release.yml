@@ -19,7 +19,9 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
+      - name: Uninstall tauri locally
+        run: cd apps/tauri-client && npm un @tauri-apps/cli
       - name: install Rust stable
         uses: actions-rs/toolchain@v1
         with:
@@ -30,11 +32,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y webkit2gtk-4.0
       - name: build topic inspector
-        run: npm ci && npx nx build topic-inspector --prod
+        run: npm i && npx nx build topic-inspector --prod
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ github.event.release.id }}
-          configPath: apps\tauri-client\src-tauri\tauri.conf.json
-          distPath: dist\apps\topic-inspector
+          projectPath: apps/tauri-client
