@@ -2,6 +2,33 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.3](https://github.com/FinnDore/topic-inspector/compare/v0.2.2...v0.2.3) (2022-02-13)
+
+
+### Bug Fixes
+
+* added dist and config paths to buildRelease ([9c8d30e](https://github.com/FinnDore/topic-inspector/commit/9c8d30ef16d7c34ffba1b107a1e5483edc61ea11))
+* added logging to build release action ([7e37a68](https://github.com/FinnDore/topic-inspector/commit/7e37a682903fb8298b508987f6a6921121df754d))
+* altered the cli version ([8789197](https://github.com/FinnDore/topic-inspector/commit/8789197894fa209349ad667d49d5b210421a5432))
+* bump node version ([230f7de](https://github.com/FinnDore/topic-inspector/commit/230f7de627e2ba4f992d3c8720977a13c066aa2c))
+* changed backslashes to forward slashes ([21a56e7](https://github.com/FinnDore/topic-inspector/commit/21a56e737133d971d62ccffd8bcb516ff5b83600))
+* changed npm ci to i ([01b76e1](https://github.com/FinnDore/topic-inspector/commit/01b76e12f183db85f4083cabcd4cd50f8dc83c96))
+* changed the buildrelease workflow to unistall the tarui cli ([70d5efd](https://github.com/FinnDore/topic-inspector/commit/70d5efd65b852c9e316314c0d7976e8fe0e26202))
+* fixed invalid ymal syntax ([35b7864](https://github.com/FinnDore/topic-inspector/commit/35b7864bc28949bbf2a59c01dba0d1a4b0140c6c))
+* fixed tauri cli version ([be21ec5](https://github.com/FinnDore/topic-inspector/commit/be21ec5bac47ac9ed13ad7d2f7215eb4fdb1e945))
+* fixed the distpath and remove the tauri cli ([4efd668](https://github.com/FinnDore/topic-inspector/commit/4efd6689be4785f2a3359ea9872682783091b239))
+* re added the tauri cli ([c5a1ce0](https://github.com/FinnDore/topic-inspector/commit/c5a1ce0dde342aad294b066fc15bac453bc45933))
+* removed config and dist path ([d738508](https://github.com/FinnDore/topic-inspector/commit/d738508ffea68224ceaa44646c1334c7c8ac755d))
+* removed src-tauri from the project path ([6c83735](https://github.com/FinnDore/topic-inspector/commit/6c837354e0285e869d3d15dfafcbbf2d85252d9b))
+* removed tauri client from tauri clients package.json ([7ebe21c](https://github.com/FinnDore/topic-inspector/commit/7ebe21c9fc1566634869b207bf458b444963d943))
+* removed the final cd ([024df34](https://github.com/FinnDore/topic-inspector/commit/024df348c2f62ab29f8e62319db047be20befb77))
+* reverted tauri cli  versions ([afa3bea](https://github.com/FinnDore/topic-inspector/commit/afa3bea83a850a8d59a90f6274b2a4744647534d))
+* split up the uninstall command ([91758f9](https://github.com/FinnDore/topic-inspector/commit/91758f95363f55e4ab4090903c19cc91e71f28b2))
+* tauri cli version missmatch ([0efe116](https://github.com/FinnDore/topic-inspector/commit/0efe116b9a6a66de4f7b411a5e6732d89d792894))
+* two more tauri cli version miss matches ([6730dcc](https://github.com/FinnDore/topic-inspector/commit/6730dcc5ae8b46da737de910617451a0461f02bb))
+
+
+
 ## [0.2.2](https://github.com/FinnDore/topic-inspector/compare/v0.2.1...v0.2.2) (2022-02-06)
 
 
