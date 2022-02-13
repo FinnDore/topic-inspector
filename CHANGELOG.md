@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.4](https://github.com/FinnDore/topic-inspector/compare/v0.2.3...v0.2.4) (2022-02-13)
+
+
+### Bug Fixes
+
+* **hunt-elo:** removed iff check from main workflow ([d775039](https://github.com/FinnDore/topic-inspector/commit/d7750399b8962139ab060f96033ab90d88745926))
+
+
+
 ## [0.2.3](https://github.com/FinnDore/topic-inspector/compare/v0.2.2...v0.2.3) (2022-02-13)
 
 
