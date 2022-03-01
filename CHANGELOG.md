@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.8](https://github.com/FinnDore/topic-inspector/compare/v0.2.7...v0.2.8) (2022-03-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @reduxjs/toolkit to v1.8.0 ([4a4e65e](https://github.com/FinnDore/topic-inspector/commit/4a4e65e27df5f178ad2f10c9c723ad1dc5c6265b))
+
+
+
 ## [0.2.7](https://github.com/FinnDore/topic-inspector/compare/v0.2.6...v0.2.7) (2022-02-27)
 
 
