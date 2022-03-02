@@ -52,7 +52,7 @@
         "@nrwl/web": "13.4.6",
         "@nrwl/workspace": "13.4.6",
         "@swc/core": "1.2.146",
-        "@swc/jest": "0.2.15",
+        "@swc/jest": "0.2.20",
         "@testing-library/react": "12.1.2",
         "@testing-library/react-hooks": "7.0.2",
         "@types/jest": "27.0.2",
