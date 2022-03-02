@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.9](https://github.com/FinnDore/topic-inspector/compare/v0.2.8...v0.2.9) (2022-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fontsource/roboto to v4.5.3 ([59a9e23](https://github.com/FinnDore/topic-inspector/commit/59a9e23407cf66a500b5ca09fb4c70fe30e3fd01))
+
+
+
 ## [0.2.8](https://github.com/FinnDore/topic-inspector/compare/v0.2.7...v0.2.8) (2022-03-01)
 
 
